@@ -11,6 +11,7 @@
 .home,
 .overview,
 .reports,
+.profile,
 .settings {
   display: flex;
   height: 90vh;

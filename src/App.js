@@ -8,6 +8,9 @@ import Groceries from './pages/Groceries';
 import Overview from './pages/Overview';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
+import Profile from './pages/uProfile';
+
+
 
 function App() {
   return (
@@ -15,12 +18,14 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route path='/' exact component={Login} />
+          <Route path='/' exact component={Login} />    
+          <Route path='/uProfile' component={Profile}/>
           <Route path ='/home' component = {Home} />  
           <Route path='/overview' component={Overview} />
           <Route path='/reports' exact component={Reports} />
           <Route path='/groceries' component={Groceries} />
           <Route path='/settings' component={Settings} />
+         
         </Switch>
       </Router>
     </>
