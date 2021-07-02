@@ -9,6 +9,7 @@ import Groceries from '../pages/Groceries';
 import Overview from '../pages/Overview';
 import Reports from '../pages/Reports';
 import Settings from '../pages/Settings';
+import Profile from '../pages/Profile';
 import {AuthProvider} from '../contexts/AuthContext';
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         
           <AuthProvider>
           <Switch>
-          <Route exact path="/" component={Home} /> 
+          <Route exact path="/" component={Profile} /> 
           <Route path='/signup' component={Signup} />  
           <Route path='/login' component={Login} />  
           <Route path='/overview' component={Overview} />
