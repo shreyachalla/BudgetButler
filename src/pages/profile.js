@@ -33,6 +33,7 @@ export default function Profile(){
 
     return(
         <div>
+
             <h1>title</h1>
             
             {posts.length > 0 ? (

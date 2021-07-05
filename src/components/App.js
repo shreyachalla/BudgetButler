@@ -11,6 +11,8 @@ import Reports from '../pages/Reports';
 import Settings from '../pages/Settings';
 import Profile from '../pages/profile';
 import {AuthProvider} from '../contexts/AuthContext';
+// delete this after
+import Test from '../pages/test';
 
 function App() {
   return (
@@ -21,7 +23,9 @@ function App() {
           <AuthProvider>
           <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/profile" component={Profile} /> 
+          <Route exact path="/profile" component={Profile} />
+           {/*delete after  */}
+          <Route exact path='/test' component={Test}/>
           <Route path='/signup' component={Signup} />  
           <Route path='/login' component={Login} />  
           <Route path='/overview' component={Overview} />
