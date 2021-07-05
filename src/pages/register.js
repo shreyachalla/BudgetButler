@@ -1,8 +1,9 @@
 import React from "react";
+import { FaRegRegistered } from "react-icons/fa";
 import {db} from "../firebase.js";
 import "./profileSU.css";
 
-const Profile = () => {
+const Register = () => {
     const saveAnswer = (event) => {
       event.preventDefault();
   
@@ -73,4 +74,4 @@ const Profile = () => {
   };
   
 
-export default Profile;
+export default FaRegRegistered;

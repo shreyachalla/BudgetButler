@@ -9,7 +9,7 @@ import Groceries from '../pages/Groceries';
 import Overview from '../pages/Overview';
 import Reports from '../pages/Reports';
 import Settings from '../pages/Settings';
-import Profile from '../pages/ProfileSU';
+import Profile from '../pages/profile';
 import {AuthProvider} from '../contexts/AuthContext';
 
 function App() {
