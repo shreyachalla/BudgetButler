@@ -10,22 +10,44 @@ function GrocerySetup() {
   //   setGroceryID(ids)
   // });
 
+  const [groceryData, setGroceryData] = useState(null)
 
-  async function getGroceryData() {
-    let groceryID = document.getElementById('search').value
-    let api = `https://api.spoonacular.com/food/products/search?apiKey=${key}&query=${groceryID}`
-    const response = await fetch(api)
-    if (!response.ok) {
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
-    }
-    const items = await response.json();
-    let ids = items.products.map(obj => obj.id);
-    return ids
+  function getGroceryData() {
+    let ids = {}
+    let groceryItem = document.getElementById('search').value
+    const api1 = `https://api.spoonacular.com/food/products/search?apiKey=${key}&query=${groceryItem}`
+    fetch(
+      api1
+    )
+    .then((response) => response.json())
+    .then((data) => {
+      var ids = data.products.map(obj => obj.id);
+      var firstID = ids[0]
+      let groceryInfo = displayGroceryData(firstID)
+      console.log(groceryInfo)
+    })
+    .catch(() => {
+      console.log("error")
+    });
+  }
+  
+  function displayGroceryData(firstID) {
+    const api2 = `https://api.spoonacular.com/food/products/${firstID}?apiKey=${key}` 
+    fetch (
+      api2
+    )
+    .then((response) => response.json())
+    .then((data) => {
+      let macros = data.nutrition.nutrients.map(obj => obj);
+      console.log(macros)
+      return macros
+    })
+    .catch(() => {
+      console.log("error")
+    });
+
   }
 
-  let ids = {}
-  console.log(document.getElementById('search'));
   return (
     <div className='grocerySetup'>
       <section className="controls">
@@ -36,17 +58,13 @@ function GrocerySetup() {
          />
       </section>
       <button className="btn" 
-      onClick={() => ids = getGroceryData()}
+      onClick={getGroceryData}
       Get Grocery Items>
       </button> 
-        {
-          <li key={ids}></li>
-        }
     </div>
   );
 }
     // let key = 'db6a8a86cd074a9f817d81be645b4a11'
-    // let api = `https://api.spoonacular.com/food/products/search?apiKey=${key}&query=${groceryData}`
     let key = '93e7f0f4d3734c60b15ffed266b08712'
 
 export default GrocerySetup;
