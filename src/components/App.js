@@ -9,8 +9,10 @@ import GrocerySetup from '../pages/GrocerySetup';
 import Overview from '../pages/Overview';
 import Reports from '../pages/Reports';
 import Settings from '../pages/Settings';
-import Profile from '../pages/Profile';
+import Profile from '../pages/profile';
 import {AuthProvider} from '../contexts/AuthContext';
+import Register from '../pages/register';
+
 
 function App() {
   return (
@@ -21,8 +23,9 @@ function App() {
           <AuthProvider>
           <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/profile" component={Profile} /> 
-          <Route path='/signup' component={Signup} />  
+          <Route exact path="/profile" component={Profile} />          
+          <Route path='/signup' component={Signup} /> 
+          <Route path='/register' component={Register}/>
           <Route path='/login' component={Login} />  
           <Route path='/overview' component={Overview} />
           <Route path='/reports' exact component={Reports} />
