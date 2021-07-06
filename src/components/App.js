@@ -29,7 +29,7 @@ function App() {
           <Route path='/login' component={Login} />  
           <Route path='/overview' component={Overview} />
           <Route path='/reports' exact component={Reports} />
-          <Route path='/groceries' component={GrocerySetup} />
+          {/* <Route path='/groceries' component={GrocerySetup} /> */}
           <Route path='/settings' component={Settings} />
           </Switch>
           </AuthProvider>
