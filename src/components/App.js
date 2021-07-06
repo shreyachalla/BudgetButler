@@ -22,8 +22,13 @@ function App() {
         
           <AuthProvider>
           <Switch>
+<<<<<<< Updated upstream
           <Route exact path="/" component={Home}/>
           {/* <Route exact path="/profile" component={Profile} />           */}
+=======
+          <Route exact path="/" component={Groceries}/>
+          <Route exact path="/profile" component={Profile} />          
+>>>>>>> Stashed changes
           <Route path='/signup' component={Signup} /> 
           <Route path='/register' component={Register}/>
           <Route path='/login' component={Login} />  
