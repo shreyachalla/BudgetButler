@@ -23,13 +23,13 @@ function App() {
           <AuthProvider>
           <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/profile" component={Profile} />          
+          {/* <Route exact path="/profile" component={Profile} />           */}
           <Route path='/signup' component={Signup} /> 
           <Route path='/register' component={Register}/>
           <Route path='/login' component={Login} />  
           <Route path='/overview' component={Overview} />
           <Route path='/reports' exact component={Reports} />
-          {/* <Route path='/groceries' component={GrocerySetup} /> */}
+          <Route path='/groceries' component={GrocerySetup} />
           <Route path='/settings' component={Settings} />
           </Switch>
           </AuthProvider>
