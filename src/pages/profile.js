@@ -25,6 +25,9 @@ const Profile = () =>{
           return(
             <div className="blog-container">
               <h4>{blog.name}</h4>
+              <h4>{blog.height}</h4>
+              <h4>{blog.username}</h4>
+              <h4>{blog.weight}</h4>
               <p>{blog.email}</p>
             </div>
           )
