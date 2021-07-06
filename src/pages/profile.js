@@ -1,46 +1,41 @@
-import react, { useEffect, useState } from 'react';
-import {db} from "../firebase";
+import React, { useEffect, useState } from 'react';
+import {db, firebase} from "../firebase";
 
 
-// right now this displays all user information but we want to connect it specific user information 
-// and display it -- connect to authentication
-export default function Profile(){
-    const[loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
+const Profile = () =>{
+    const [blogs,setBlogs]=useState([])
 
     useEffect(() => {
-        const getPostsFromFirebase = [];
-        const subscriber = db.collection("users").onSnapshot((querySnapshot) => {
-            querySnapshot.forEach((doc => {
-                getPostsFromFirebase.push({...doc.data(), key: doc.id,
-                });
-               
-            }));
-            setPosts(getPostsFromFirebase);
-            setLoading(false);
-        });
+        fetchBlogs();
+      }, [])
 
-        return() => subscriber();
-
-    }, []);
-
-    if(loading){
-        return <h1>loading firebase data</h1>
+    const fetchBlogs=async()=>{
+        // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
+        const currentUser = firebase.auth().currentUser;  
+        const response=db.collection('users').doc(currentUser.uid);
+        const data=await response.get();
+        setBlogs([...blogs,data.data()])
     }
-    
-    
-
-
     return(
         <div>
+           <h2>User Information</h2>
 
-            <h1>title</h1>
-            
-            {posts.length > 0 ? (
-                posts.map((post) => <div key={post.key}>{post.name}</div>)
-            ): (
-                <h1>No profiles yet</h1>
-            )}
+           {
+        blogs && blogs.map(blog=>{
+          return(
+            <div className="blog-container">
+              <h4>{blog.name}</h4>
+              <p>{blog.email}</p>
+            </div>
+          )
+        })
+      }
+        
         </div>
     );
 }
+
+
+
+
+export default Profile;

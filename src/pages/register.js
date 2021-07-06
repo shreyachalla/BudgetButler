@@ -1,7 +1,7 @@
 import React from "react";
 import { FaRegRegistered } from "react-icons/fa";
-import {db} from "../firebase.js";
-import "./profileSU.css";
+import {db, firebase} from "../firebase.js";
+
 
 const Register = () => {
     const saveAnswer = (event) => {
@@ -17,7 +17,9 @@ const Register = () => {
         return accumulator;
       }, {});
   
-      db.collection("users").add(formData);
+      const currentUser = firebase.auth().currentUser;  
+      // db.collection("users").add(formData);
+      db.collection("users").doc(currentUser.uid).set(formData);
 
     //  this updates values of specific fields
       // db.collection("users").doc('rxTB9VY2woYD7C4kRAyb').update({name: "jack"});
@@ -74,4 +76,4 @@ const Register = () => {
   };
   
 
-export default FaRegRegistered;
+export default Register;

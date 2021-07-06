@@ -11,8 +11,8 @@ import Reports from '../pages/Reports';
 import Settings from '../pages/Settings';
 import Profile from '../pages/profile';
 import {AuthProvider} from '../contexts/AuthContext';
-// delete this after
-import Test from '../pages/test';
+import Register from '../pages/register';
+
 
 function App() {
   return (
@@ -23,10 +23,9 @@ function App() {
           <AuthProvider>
           <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/profile" component={Profile} />
-           {/*delete after  */}
-          <Route exact path='/test' component={Test}/>
-          <Route path='/signup' component={Signup} />  
+          <Route exact path="/profile" component={Profile} />          
+          <Route path='/signup' component={Signup} /> 
+          <Route path='/register' component={Register}/>
           <Route path='/login' component={Login} />  
           <Route path='/overview' component={Overview} />
           <Route path='/reports' exact component={Reports} />
