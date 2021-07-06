@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Login from './Login';
 import Signup from './Signup';
-import Groceries from '../pages/Groceries';
+import GrocerySetup from '../pages/GrocerySetup';
 import Overview from '../pages/Overview';
 import Reports from '../pages/Reports';
 import Settings from '../pages/Settings';
@@ -26,7 +26,7 @@ function App() {
           <Route path='/login' component={Login} />  
           <Route path='/overview' component={Overview} />
           <Route path='/reports' exact component={Reports} />
-          <Route path='/groceries' component={Groceries} />
+          <Route path='/groceries' component={GrocerySetup} />
           <Route path='/settings' component={Settings} />
           </Switch>
           </AuthProvider>
