@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Login from './Login';
-import Signup from './Signup';
+// import Signup from './Signup';
 import GrocerySetup from '../pages/GrocerySetup';
 import Overview from '../pages/Overview';
 import Reports from '../pages/Reports';
@@ -22,15 +22,17 @@ function App() {
         
           <AuthProvider>
           <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/profile" component={Profile} />          
-          <Route path='/signup' component={Signup} /> 
-          <Route path='/register' component={Register}/>
-          <Route path='/login' component={Login} />  
-          <Route path='/overview' component={Overview} />
-          <Route path='/reports' exact component={Reports} />
-          <Route path='/groceries' component={GrocerySetup} />
-          <Route path='/settings' component={Settings} />
+          <Route exact path='/' component={Login} />  
+          <Route exact path="/home" component={Home}/>
+          <Route exact path="/profile" component={Profile} />                    
+          <Route exact path='/overview' component={Overview} />
+          <Route exact path='/reports' exact component={Reports} />
+          <Route exact path='/groceries' component={GrocerySetup} />
+          <Route exact path='/settings' component={Settings} />
+          
+          
+          {/* <Route exact path='/signup' component={Signup} />  */}
+          <Route exact path='/register' component={Register}/>
           </Switch>
           </AuthProvider>
         
