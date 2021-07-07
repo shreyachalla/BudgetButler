@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {useAuth} from '../contexts/AuthContext'
 import { Link, useHistory } from 'react-router-dom';
+import "./Signup.css";
 
 export default function Signup() {
     const emailRef = useRef()
@@ -28,24 +29,32 @@ export default function Signup() {
         
     }
     return (
-        <div>
-           
-            <h1>Already have an account? Log In </h1> 
-            <h2> Sign Up Here</h2>
-            <form id="login-form" onSubmit={handleSubmit}>
-                <label for="email"> Email</label>
-                <input type="text" id="email" placeholder="Your email" ref={emailRef} required></input> <br></br>
+        // <div>
+        <body class="container">
 
-                <label for="password" id="password-label"> Password</label>
+            <div class="leftCol">
+                <h1>Budget Butler</h1>
+            </div>
+
+
+            {/* <h4>Already have an account? Log In </h4>  */}
+            
+            <form id="login-form" class="rightCol" onSubmit={handleSubmit}>
+                <h4> Register Individual Account!</h4>
+                <label for="email"> Email*</label>
+                <input type="text" id="email" placeholder="Enter email address" ref={emailRef} required></input> <br></br>
+
+                <label for="password" id="password-label"> Create password*</label>
                 <input type="text" id="password" placeholder="Your password" ref={passwordRef}required></input> <br></br>
                 
 
                 <label for="conpassword" id="conpassword-label"> Confirm Password</label>
-                <input type="text" id="conpassword" placeholder="Confirm your password" ref={confirmRef}required></input> <br></br>
+                <input type="text" id="conpassword" placeholder="Confirm password" ref={confirmRef}required></input> <br></br>
                 
-                <button disabled={loading} type="submit"> Sign Up </button> 
+                <button className="registerButton" disabled={loading} type="submit"> Register Account </button> 
 
             </form>
-        </div>
+        {/* // </div> */}
+        </body>
     )
 }
