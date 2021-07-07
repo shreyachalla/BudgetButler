@@ -29,32 +29,32 @@ export default function Signup() {
         
     }
     return (
-        // <div>
-        <body class="container">
+        <div className="container">
 
-            <div class="leftCol">
+            <div className="leftCol">
                 <h1>Budget Butler</h1>
             </div>
 
 
             {/* <h4>Already have an account? Log In </h4>  */}
-            
-            <form id="login-form" class="rightCol" onSubmit={handleSubmit}>
-                <h4> Register Individual Account!</h4>
-                <label for="email"> Email*</label>
-                <input type="text" id="email" placeholder="Enter email address" ref={emailRef} required></input> <br></br>
+            <div className="rightCol">
+                <form id="login-form" onSubmit={handleSubmit}>
+                    <h4> Register Individual Account!</h4>
+                    <label for="email"> Email*</label>
+                    <input type="text" id="email" placeholder="Enter email address" ref={emailRef} required></input> <br></br>
 
-                <label for="password" id="password-label"> Create password*</label>
-                <input type="text" id="password" placeholder="Your password" ref={passwordRef}required></input> <br></br>
-                
+                    <label for="password" id="password-label"> Create password*</label>
+                    <input type="text" id="password" placeholder="Your password" ref={passwordRef}required></input> <br></br>
+                    
 
-                <label for="conpassword" id="conpassword-label"> Confirm Password</label>
-                <input type="text" id="conpassword" placeholder="Confirm password" ref={confirmRef}required></input> <br></br>
-                
-                <button className="registerButton" disabled={loading} type="submit"> Register Account </button> 
+                    <label for="conpassword" id="conpassword-label"> Confirm Password</label>
+                    <input type="text" id="conpassword" placeholder="Confirm password" ref={confirmRef}required></input> <br></br>
+                    
+                    <button className="registerButton" disabled={loading} type="submit"> Register Account </button> 
 
-            </form>
-        {/* // </div> */}
-        </body>
+                </form>
+            </div>
+        
+        </div>
     )
 }
