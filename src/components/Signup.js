@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useAuth} from '../contexts/AuthContext'
 import { Link, useHistory } from 'react-router-dom';
 import "./Signup.css";
+import logo from '../assets/logo3.png';
 
 export default function Signup() {
     const emailRef = useRef()
@@ -32,13 +33,15 @@ export default function Signup() {
         <div className="container">
 
             <div className="leftCol">
-                <h1>Budget Butler</h1>
+                <img src={logo} alt="Logo" />
+                <h1>BUDGET BUTLER</h1>
+
             </div>
 
 
             {/* <h4>Already have an account? Log In </h4>  */}
             <div className="rightCol">
-                <form id="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" id="login-form" onSubmit={handleSubmit}>
                     <h4> Register Individual Account!</h4>
                     <label for="email"> Email*</label>
                     <input type="text" id="email" placeholder="Enter email address" ref={emailRef} required></input> <br></br>
