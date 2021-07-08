@@ -4,6 +4,7 @@ import "./GrocerySetup.css";
 function GrocerySetup() {
 
   const [groceryData, setGroceryData] = useState("");
+  const [productData, setProductData] = useState("");
 
   function getGroceryData() {
     let groceryItem = document.getElementById("search").value;
@@ -13,6 +14,7 @@ function GrocerySetup() {
         .then((response) => response.json())
         .then((data) => {
           var ids = data.products.map((obj) => obj.id);
+          setProductData(data.products.map((obj) => obj.title));
           var firstID = ids[0];
           var dataResolved = displayGroceryData(firstID)
             .then(function (resolved) {
@@ -54,7 +56,8 @@ function GrocerySetup() {
       <button className="btn" onClick={getGroceryData}>
         Get Grocery Items
       </button>
-      {groceryData && <GroceryList groceryData={groceryData} />}
+      {groceryData && <GroceryList groceryData={groceryData} productData={productData} />}
+
     </div>
   );
 }

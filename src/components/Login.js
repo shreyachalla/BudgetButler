@@ -24,6 +24,12 @@ export default function Login() {
 
     setLoading(false)
   }
+
+  const handleClick = () => {
+    console.log('checking click');
+    // take user to homePage
+  }
+
     return (
         <>
         <div>
@@ -36,7 +42,7 @@ export default function Login() {
                 <label for="password" id="password-label"> Password</label>
                 <input type="text" id="password" placeholder="Your password" ref={passwordRef}required></input> <br></br>
                 
-                <button disabled={loading} type="submit"> Log In </button> 
+                <button onClick={handleClick} disabled={loading} type="submit"> Log In </button> 
 
             </form>
         </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import Grocery from "./Grocery";
-export default function GroceryList({ groceryData }) {
+
+
+export default function GroceryList({ groceryData, productData }) {
   console.log(groceryData);
 
   return (
@@ -23,7 +25,15 @@ export default function GroceryList({ groceryData }) {
           ))}
         </ul>
       </section>
-      <section className="groceries"></section>
+
+      <section className="groceries">
+        <h1>titles</h1>
+        <ul>
+            {productData.map((titles) => (
+                <h3>{titles}</h3>
+            ))}
+        </ul>
+      </section>
     </main>
   );
 }

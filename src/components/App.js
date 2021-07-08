@@ -14,6 +14,11 @@ import {AuthProvider} from '../contexts/AuthContext';
 import Register from '../pages/register';
 
 
+// right now have it so that the pages below are app's children & app & signup are both root components
+// want it to so that signup is child 
+// signup -> login -> everything else
+
+
 function App() {
   return (
     <>
