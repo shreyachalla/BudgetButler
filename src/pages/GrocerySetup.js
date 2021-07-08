@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import GroceryList from "./GroceryList";
 import "./GrocerySetup.css";
-function GrocerySetup() {
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
+function GrocerySetup() {
   const [groceryData, setGroceryData] = useState("");
   const [productData, setProductData] = useState("");
 
@@ -16,11 +18,12 @@ function GrocerySetup() {
           var ids = data.products.map((obj) => obj.id);
           setProductData(data.products.map((obj) => obj.title));
           var firstID = ids[0];
-          var dataResolved = displayGroceryData(firstID)
-            .then(function (resolved) {
-              //promise is now resolved
-              setGroceryData(resolved)
-            });
+          var dataResolved = displayGroceryData(firstID).then(function (
+            resolved
+          ) {
+            //promise is now resolved
+            setGroceryData(resolved);
+          });
         })
         .catch(() => {
           console.log("error");
@@ -53,11 +56,12 @@ function GrocerySetup() {
           autoComplete="off"
         />
       </section>
-      <button className="btn" onClick={getGroceryData}>
+      <Button variant="dark" onClick={getGroceryData}>
         Get Grocery Items
-      </button>
-      {groceryData && <GroceryList groceryData={groceryData} productData={productData} />}
-
+      </Button>{" "}
+      {groceryData && (
+        <GroceryList groceryData={groceryData} productData={productData} />
+      )}
     </div>
   );
 }

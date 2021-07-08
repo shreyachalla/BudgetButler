@@ -1,14 +1,41 @@
 import React from "react";
 import Grocery from "./Grocery";
 import "./GroceryList.css";
-
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import CardColumns from "react-bootstrap/CardColumns";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function GroceryList({ groceryData, productData }) {
   console.log(groceryData);
 
+  const styles = {
+    padding: {
+      paddingTop: "5vh",
+      paddingBottom: "5vh",
+      paddingRight: "18vw",
+      paddingLeft: "18vw",
+    },
+  };
+
   return (
     <main>
-      <section className="nutrients">
+      <section className="groceries">
+        <CardColumns style={styles.padding} className="even">
+          {productData.map((titles) => (
+            <Card bg="light" className="text-center p-4">
+              <Card.Body>
+                <Card.Text>{titles}</Card.Text>
+                <Button variant="dark" size="lg">
+                  Add to Cart
+                </Button>
+              </Card.Body>
+            </Card>
+          ))}
+        </CardColumns>
+      </section>
+
+      {/* <section className="nutrients">
         <h1>Macros</h1>
         <ul>
           {groceryData.map((nutrition) => (
@@ -25,27 +52,7 @@ export default function GroceryList({ groceryData, productData }) {
             </section>
           ))}
         </ul>
-      </section>
-
-      <section className="groceries">
-
-        
-          
-          <div className ="grid">
-            {productData.map((titles) => (
-              <div className="card"> 
-                
-                <h3 className="product">{titles}</h3>
-                <button> Add to Cart </button> 
-                </div>
-                
-               
-            ))}
-            </div> 
-          
-            
-      
-      </section>
+      </section> */}
     </main>
   );
 }
