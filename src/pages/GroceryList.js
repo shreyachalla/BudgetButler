@@ -1,5 +1,6 @@
 import React from "react";
 import Grocery from "./Grocery";
+import "./GroceryList.css";
 
 
 export default function GroceryList({ groceryData, productData }) {
@@ -27,12 +28,23 @@ export default function GroceryList({ groceryData, productData }) {
       </section>
 
       <section className="groceries">
-        <h1>titles</h1>
-        <ul>
+
+        
+          
+          <div className ="grid">
             {productData.map((titles) => (
-                <h3>{titles}</h3>
+              <div className="card"> 
+                
+                <h3 className="product">{titles}</h3>
+                <button> Add to Cart </button> 
+                </div>
+                
+               
             ))}
-        </ul>
+            </div> 
+          
+            
+      
       </section>
     </main>
   );
