@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
 import {useAuth} from '../contexts/AuthContext'
 import { Link, useHistory } from 'react-router-dom';
-import "./Signup.css";
 import logo from '../assets/logo3.png';
+import styles from "./Signup.css";
 
 
 export default function Signup() {
@@ -44,18 +44,19 @@ export default function Signup() {
             {/* <h4>Already have an account? Log In </h4>  */}
             <div className="rightCol">
                 <form className="login-form" id="login-form" onSubmit={handleSubmit}>
-                    <h4> Register Individual Account!</h4>
-                    <label for="email"> Email*</label>
-                    <input type="text" id="email" placeholder="Enter email address" ref={emailRef} required></input> <br></br>
+                    <h4 className="registerDir"> Register Individual Account!</h4>
 
-                    <label for="password" id="password-label"> Create password*</label>
-                    <input type="text" id="password" placeholder="Your password" ref={passwordRef}required></input> <br></br>
+                    <label for="email"> Email address*</label><br/><br/>
+                    <input  type="text" id="email" placeholder="Enter email address" ref={emailRef} required></input> <br></br>
+
+                    <label for="password" id="password-label"> Create password*</label><br/><br/>
+                    <input  type="text" id="password" placeholder="Your password" ref={passwordRef}required></input> <br></br>
                     
 
-                    <label for="conpassword" id="conpassword-label"> Confirm Password</label>
+                    <label for="conpassword" id="conpassword-label"> Confirm Password</label><br/><br/>
                     <input type="text" id="conpassword" placeholder="Confirm password" ref={confirmRef}required></input> <br></br>
                     
-                    <button className="registerButton" disabled={loading} type="submit"> Register Account </button> 
+                    <button disabled={loading} type="submit"> Register Account </button> 
 
                 </form>
             </div>
