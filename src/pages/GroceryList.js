@@ -60,9 +60,9 @@ export default function GroceryList({ groceryProductData }) {
     //   };
           // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
           //const [productName, setProductName] = useState(key); 
-          macroData.push(key[0]);
+          var name = key[0];
           const currentUser = firebase.auth().currentUser;  
-          db.collection('users').doc(currentUser.uid).update({macros: macroData});
+          db.collection('users').doc(currentUser.uid).update({[name] : macroData});
           
     
   
