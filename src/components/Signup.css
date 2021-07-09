@@ -1,51 +1,72 @@
-/* .rightCol {
-  background-color: white;
-  flex-grow: 1;
-  margin-bottom: 20px;
-}
+/* Budget Butler below logo - need to change */
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,700&display=swap");
 
-.leftCol {
-  background-color: #afe5d5;
-  flex-grow: 1;
-}
-
-.container {
-  display: flex;
-  align-items: stretch;
-  flex: 1 1 auto;
-}
-
-.registerButton {
-  background-color: #1ae891;
-  color: #ffffff;
-} */
-
-/* without flexBox */
-
+/* email password text near input */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap");
 .container {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 3fr;
   grid-template-rows: 1fr;
   grid-template-areas: "left right";
 }
 
 .leftCol {
   background: #afe5d5;
-  border-radius: 64% 36% 100% 0% / 0% 100% 0% 100%;
+  border-radius: 28% 39% 4% 10% / 0% 68% 15% 0%;
   grid-area: "left";
 
-  /* font-family: "Ubuntu Mono", monospace !important; */
   color: white;
   /* font-weight: bold; */
+}
+
+.logo {
+  width: 568px;
+  height: 506px;
+  margin-top: 20%;
+}
+.compName {
+  font-family: "Pt Serif", serif;
+  margin-bottom: 40%;
 }
 
 .rightCol {
   background: #ffffff;
   grid-area: "right";
+  justify-self: center;
 }
 
 .login-form {
-  margin-top: 50%;
+  margin-top: 35%;
+}
+
+.registerDir {
+  color: black;
+  font-weight: 900;
+  padding-bottom: 5%;
+  font-size: 25px;
+  /* text-align: center; */
+}
+
+input {
+  width: 426px;
+  height: 64px;
+  border: 1px solid #8692a6;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-family: "Inter", sans-serif;
+}
+
+label {
+  font-family: "Inter", sans-serif;
+  color: gray;
+}
+
+button {
+  width: 426px;
+  height: 64px;
+  background-color: #1ae891;
+  color: white;
+  border-radius: 6px;
 }
