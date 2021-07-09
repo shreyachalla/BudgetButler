@@ -1,9 +1,11 @@
 import React from "react";
 import { FaRegRegistered } from "react-icons/fa";
 import {db, firebase} from "../firebase.js";
-
+import {Link, useHistory} from "react-router-dom";
 
 const Register = () => {
+  const history = useHistory();
+
     const saveAnswer = (event) => {
       event.preventDefault();
   
@@ -18,19 +20,15 @@ const Register = () => {
       }, {});
   
       const currentUser = firebase.auth().currentUser;  
-      // db.collection("users").add(formData);
       db.collection("users").doc(currentUser.uid).set(formData);
 
-    //  this updates values of specific fields
-      // db.collection("users").doc('rxTB9VY2woYD7C4kRAyb').update({name: "jack"});
-    
+      history.push('/groceries');
     };
-  // const ifUserInfoFilled = 
+
+    
 
     return (
-//check if data is already there-- fetch
-// if true ->set instead of add
-// 
+
       <div className="container">
 
       
@@ -67,7 +65,8 @@ const Register = () => {
               <label for="malSex">Male</label>
               <input type="radio" id="malSex" name='male' value="0"></input>
             </div>
-          <button>Submit to Firebase</button>
+          <button type="submit">Submit to Firebase</button>
+          
 
         </form>
         
