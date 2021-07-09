@@ -24,14 +24,17 @@ export default function GroceryList({ groceryProductData }) {
     fetch(api2)
       .then((response) => response.json())
       .then((data) => {
-        setMacroData(data.nutrition.nutrients.map((obj) => obj));
+        setMacroData(
+          data.nutrition.nutrients.map((obj) => obj)
+          
+          );
       })
       .catch(() => {
         console.log("#2 get request error");
       });
   }
 
-  function sendInfo(macroData) {
+  function sendInfo(key, macroData) {
 
     // const Register = () => {
     //   const saveAnswer = (event) => {
@@ -56,8 +59,11 @@ export default function GroceryList({ groceryProductData }) {
       
     //   };
           // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
+          //const [productName, setProductName] = useState(key); 
+          macroData.push(key[0]);
           const currentUser = firebase.auth().currentUser;  
-          db.collection('users').doc(currentUser.uid).update({macro: macroData});
+          db.collection('users').doc(currentUser.uid).update({macros: macroData});
+          
     
   
   }
@@ -72,7 +78,7 @@ export default function GroceryList({ groceryProductData }) {
   };
 
   const [macroData, setMacroData] = useState("");
-
+  
   return (
     <main>
       <section className="groceries">
@@ -85,7 +91,7 @@ export default function GroceryList({ groceryProductData }) {
                   <Button variant="dark" size="lg" onClick={() => getID(value)}>
                     View Nutrients
                   </Button>
-                  <Button variant="dark" size="lg" onClick={() => sendInfo(macroData)}>
+                  <Button variant="dark" size="lg" onClick={() => sendInfo(key, macroData)}>
                     Add to Cart
                   </Button>
                 </Card.Body>
