@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import styles from "./Signup.css"
+import logo from '../assets/logo3.png';
 
 export default function Login() {
   const emailRef = useRef()
@@ -31,21 +33,31 @@ export default function Login() {
   }
 
     return (
-        <>
-        <div>
-             
-            <h2> Log In Here</h2>
-            <form onSubmit={handleSubmit} id="login-form">
-                <label for="email"> Email</label>
+        //<>
+        <div className="container">
+
+          <div className="leftCol">
+                  <div className="logoCompName">
+                      <img className="logo" src={logo} alt="Logo" />
+                      <h1 className="compName" >BUDGET BUTLER</h1>
+                  </div>
+              </div>
+          
+          <div className="rightCol">
+            <form className="login-form" onSubmit={handleSubmit} id="login-form">
+                <h2 className="registerDir" > Log In Here</h2>
+
+                <label for="email"> Email address</label><br/><br/>
                 <input type="text" id="email" placeholder="Your email" ref={emailRef} required></input> <br></br>
 
-                <label for="password" id="password-label"> Password</label>
+                <label for="password" id="password-label"> Password</label><br/><br/>
                 <input type="text" id="password" placeholder="Your password" ref={passwordRef}required></input> <br></br>
                 
                 <button onClick={handleClick} disabled={loading} type="submit"> Log In </button> 
 
             </form>
+            </div>
         </div>
-        </>
+       // </>
     )
 }
