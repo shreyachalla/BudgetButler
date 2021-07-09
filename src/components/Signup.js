@@ -23,7 +23,7 @@ export default function Signup() {
             setError('')
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-            history.push("/")
+            history.push("/register");
         } catch {
             setError('Failed to create an account')
         }
@@ -43,7 +43,7 @@ export default function Signup() {
 
             {/* <h4>Already have an account? Log In </h4>  */}
             <div className="rightCol">
-                <form className="login-form" id="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" id="login-form" >  {/*onSubmit={handleSubmit}*/}
                     <h4 className="registerDir"> Register Individual Account!</h4>
 
                     <label for="email"> Email address*</label><br/><br/>
@@ -56,7 +56,7 @@ export default function Signup() {
                     <label for="conpassword" id="conpassword-label"> Confirm Password</label><br/><br/>
                     <input type="text" id="conpassword" placeholder="Confirm password" ref={confirmRef}required></input> <br></br>
                     
-                    <button disabled={loading} type="submit"> Register Account </button> 
+                    <button disabled={loading} type="submit" onClick={handleSubmit} > Register Account </button> 
 
                 </form>
             </div>
