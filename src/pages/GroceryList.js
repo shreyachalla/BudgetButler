@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grocery from "./Grocery";
 import "./GroceryList.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import CardColumns from "react-bootstrap/CardColumns";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {db, firebase} from "../firebase";
+
 
 export default function GroceryList({ groceryProductData }) {
   // console.log(groceryProductData)
@@ -29,6 +31,37 @@ export default function GroceryList({ groceryProductData }) {
       });
   }
 
+  function sendInfo(macroData) {
+
+    // const Register = () => {
+    //   const saveAnswer = (event) => {
+    //     event.preventDefault();
+    
+    //     const elementsArray = [...event.target.elements];
+    
+    //     const formData = elementsArray.reduce((accumulator, currentValue) => {
+    //       if (currentValue.id) {
+    //         accumulator[currentValue.id] = currentValue.value;
+    //       }
+    
+    //       return accumulator;
+    //     }, {});
+    
+    //     const currentUser = firebase.auth().currentUser;  
+    //     // db.collection("users").add(formData);
+    //     db.collection("users").doc(currentUser.uid).set(formData);
+  
+    //   //  this updates values of specific fields
+    //     // db.collection("users").doc('rxTB9VY2woYD7C4kRAyb').update({name: "jack"});
+      
+    //   };
+          // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
+          const currentUser = firebase.auth().currentUser;  
+          db.collection('users').doc(currentUser.uid).update({macro: macroData});
+    
+  
+  }
+
   const styles = {
     padding: {
       paddingTop: "5vh",
@@ -50,6 +83,9 @@ export default function GroceryList({ groceryProductData }) {
                 <Card.Body>
                   <Card.Text>{key}</Card.Text>
                   <Button variant="dark" size="lg" onClick={() => getID(value)}>
+                    View Nutrients
+                  </Button>
+                  <Button variant="dark" size="lg" onClick={() => sendInfo(macroData)}>
                     Add to Cart
                   </Button>
                 </Card.Body>
