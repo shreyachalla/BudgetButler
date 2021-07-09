@@ -1,26 +1,4 @@
-/* .rightCol {
-  background-color: white;
-  flex-grow: 1;
-  margin-bottom: 20px;
-}
-
-.leftCol {
-  background-color: #afe5d5;
-  flex-grow: 1;
-}
-
-.container {
-  display: flex;
-  align-items: stretch;
-  flex: 1 1 auto;
-}
-
-.registerButton {
-  background-color: #1ae891;
-  color: #ffffff;
-} */
-
-/* without flexBox */
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,700&display=swap");
 
 .container {
   width: 100vw;
@@ -33,12 +11,28 @@
 
 .leftCol {
   background: #afe5d5;
-  border-radius: 64% 36% 100% 0% / 0% 100% 0% 100%;
+  border-radius: 28% 39% 4% 10% / 0% 68% 15% 0%;
   grid-area: "left";
 
-  /* font-family: "Ubuntu Mono", monospace !important; */
   color: white;
   /* font-weight: bold; */
+}
+
+/* .logoCompName {
+  width: 568px;
+  height: 506px;
+  margin-top: 20%;
+  margin-bottom: 40%;
+  font-family: "Pt Serif", serif;
+} */
+.logo {
+  width: 568px;
+  height: 506px;
+  margin-top: 20%;
+}
+.compName {
+  font-family: "Pt Serif", serif;
+  margin-bottom: 40%;
 }
 
 .rightCol {
