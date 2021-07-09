@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import "./Signup.css";
 import logo from '../assets/logo3.png';
 
+
 export default function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -33,9 +34,10 @@ export default function Signup() {
         <div className="container">
 
             <div className="leftCol">
-                <img src={logo} alt="Logo" />
-                <h1>BUDGET BUTLER</h1>
-
+                <div className="logoCompName">
+                    <img className="logo" src={logo} alt="Logo" />
+                    <h1 className="compName" >BUDGET BUTLER</h1>
+                </div>
             </div>
 
 
