@@ -31,10 +31,9 @@ function App() {
           <Route exact path="/home" component={Home}/>
           <Route exact path="/profile" component={Profile} />                    
           <Route exact path='/overview' component={Overview} />
-          <Route exact path='/reports' exact component={Reports} />
+          <Route exact path='/reports' component={Reports} />
           <Route exact path='/groceries' component={GrocerySetup} />
           <Route exact path='/settings' component={Settings} />
-          
           
           {/* <Route exact path='/signup' component={Signup} />  */}
           <Route exact path='/register' component={Register}/>
