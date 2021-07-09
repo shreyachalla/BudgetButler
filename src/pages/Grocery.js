@@ -1,27 +1,25 @@
-import React, {useState, useEffect} from 'react';
+import React from "react";
+import { Card } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function Grocery({grocery}) {
-
-  const [imageUrl, setImageUrl] = useState("")
-
-  // useEffect(() => {
-  //   let key = 'db6a8a86cd074a9f817d81be645b4a11'
-  //   let api = `https://api.spoonacular.com/recipes/${grocery.id}/information?apiKey=${key}&includeNutrition=false`
-  //   fetch(
-  //     api
-  //     ).then((response) => response.json())
-  //     .then((data) => {
-  //       setImageUrl(data.image)
-  //     })
-  //     .catch(() => {
-  //       console.log("error")
-  //     })
-  // }, [grocery.id])
+function Grocery({ macroData }) {
   return (
-    <article>
-      {/* <h1>{grocery.title}</h1>
-      <img src={imageUrl} alt ="grocery"/> */}
-    </article>
+    <section className="nutrients">
+      <Card.Body>
+        <Card.Title variant={"dark"} className="text-center p-4">
+          <h2>Macros</h2>
+        </Card.Title>
+        {macroData.map((nutrition) => (
+          <ul>
+            <h5>{nutrition.name}</h5>
+            <li>
+              Amount: {nutrition.amount} {nutrition.unit}
+            </li>
+            <li>Percent of Daily Needs: {nutrition.percentOfDailyNeeds} %</li>
+          </ul>
+        ))}
+      </Card.Body>
+    </section>
   );
 }
 
