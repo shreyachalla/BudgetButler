@@ -13,9 +13,11 @@ export default function GroceryList({ groceryProductData }) {
   var productData = groceryProductData.map((obj) => obj.title); //keys
   var groceryData = groceryProductData.map((obj) => obj.id); //values
   var result = {};
+  
   productData.forEach((key, i) => (result[key] = groceryData[i]));
-  console.log(result);
-
+  // console.log("result: " + result);
+  // console.log("Grocery data: " + groceryData);
+  // console.log("product Data: " + productData)
   function getID(value) {
     let idData = groceryData[value];
     console.log(value);
@@ -36,34 +38,17 @@ export default function GroceryList({ groceryProductData }) {
 
   function sendInfo(key, macroData) {
 
-    // const Register = () => {
-    //   const saveAnswer = (event) => {
-    //     event.preventDefault();
-    
-    //     const elementsArray = [...event.target.elements];
-    
-    //     const formData = elementsArray.reduce((accumulator, currentValue) => {
-    //       if (currentValue.id) {
-    //         accumulator[currentValue.id] = currentValue.value;
-    //       }
-    
-    //       return accumulator;
-    //     }, {});
-    
-    //     const currentUser = firebase.auth().currentUser;  
-    //     // db.collection("users").add(formData);
-    //     db.collection("users").doc(currentUser.uid).set(formData);
-  
-    //   //  this updates values of specific fields
-    //     // db.collection("users").doc('rxTB9VY2woYD7C4kRAyb').update({name: "jack"});
-      
-    //   };
+          console.log(key);
+          console.log("This is what I'm printing" + key[0]);
           // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
           //const [productName, setProductName] = useState(key); 
           var name = key[0];
           const currentUser = firebase.auth().currentUser;  
-          db.collection('users').doc(currentUser.uid).update({[name] : macroData});
-          
+
+        console.log(macroData);
+          // db.collection('users').doc(currentUser.uid).collection('groceries').add({[name] : macroData});
+          db.collection('users').doc(currentUser.uid).collection('groceries').doc(name).set({names:macroData});
+
     
   
   }

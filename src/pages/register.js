@@ -15,12 +15,14 @@ const Register = () => {
         if (currentValue.id) {
           accumulator[currentValue.id] = currentValue.value;
         }
-  
+        // accumulator['macros'] = [];
+        console.log(accumulator);
         return accumulator;
       }, {});
   
       const currentUser = firebase.auth().currentUser;  
       db.collection("users").doc(currentUser.uid).set(formData);
+      // db.collection('users').doc(currentUser.uid).collection('groceries').add({groceries: "check"});
 
       history.push('/groceries');
     };
