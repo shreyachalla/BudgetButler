@@ -8,29 +8,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FaPray } from "react-icons/fa";
 
 export default function Signup() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmRef = useRef();
-  const { signup } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [validated, setValidated] = useState(false);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (passwordRef.current.value !== confirmRef.current.value) {
-      return setError("Passwords do not match");
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
     }
-    try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
-    } catch {
-      setError("Failed to create an account");
-    }
-    setLoading(false);
-  }
+
+    setValidated(true);
+  };
 
   const styles = {
     padding: {
@@ -55,7 +43,13 @@ export default function Signup() {
 
         {/* <h4>Already have an account? Log In </h4>  */}
         <Col lg={5} md={6} sm={12} className="text-left mt-5 p-3">
-          <Form className="login-form" id="login-form" onSubmit={handleSubmit}>
+          <Form
+            className="login-form"
+            id="login-form"
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+          >
             <Container style={styles.padding}>
               <Form.Group>
                 <Form.Label>
@@ -64,37 +58,39 @@ export default function Signup() {
               </Form.Group>
 
               <Form.Label>Email Address *</Form.Label>
-              <Form.Group controlId="formBasicEmail">
+              <Form.Group controlId="validationCustom01">
                 <Form.Control
+                   validated={validated}
+                  required
                   type="email"
                   className="text-left"
                   placeholder="Enter email address"
-                  ref={emailRef}
-                  required
                 ></Form.Control>
               </Form.Group>
 
               <Form.Label>Create Password *</Form.Label>
-              <Form.Group controlId="formBasicPassword">
+              
+              <Form.Group controlId="validationCustom02">
                 <Form.Control
+                  validated={validated}
+                  required
                   type="password"
                   className="text-left"
                   placeholder="Password"
-                  ref={passwordRef}
-                  required
                 ></Form.Control>
               </Form.Group>
+           
 
               <Form.Label>Repeat Password *</Form.Label>
-              <Form.Group controlId="formBasicPassword">
+              <Form.Group controlId="validationCustom03">
                 <Form.Control
+                  required
                   type="password"
                   className="text-left"
                   placeholder="Repeat password"
-                  ref={confirmRef}
-                  required
                 ></Form.Control>
               </Form.Group>
+         
 
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check
@@ -106,7 +102,6 @@ export default function Signup() {
 
               <Button
                 variant="primary btn-block"
-                disabled={loading}
                 type="submit"
                 onClick={handleSubmit}
               >
