@@ -35,25 +35,25 @@ function Overview() {
     
 }
 
-const findMacros= ()=>{
+// const findMacros= ()=>{
 
-  // for each names object want to iterate though the array of macros
-   const nutrients = [];
-  // nutr.names.name.forEach((mac, index, nutr) =>{
-    nutr.names.forEach((mac, index, nutr)=>{
-      nutrients.push(nutr.id)
-      mac.names.forEach((eachMacros, index, mac)=>{
-        if (mac === "Fat" || mac === "Carbohydrates" || mac === "Protein" || mac === "Calories"){
-          nutrients.push(nutr.names[index])
-      }
-      })
+//   // for each names object want to iterate though the array of macros
+//    const nutrients = [];
+//   // nutr.names.name.forEach((mac, index, nutr) =>{
+//     nutr.names.forEach((mac, index, nutr)=>{
+//       nutrients.push(nutr.id)
+//       mac.names.forEach((eachMacros, index, mac)=>{
+//         if (mac === "Fat" || mac === "Carbohydrates" || mac === "Protein" || mac === "Calories"){
+//           nutrients.push(nutr.names[index])
+//       }
+//       })
       
-  })
+//   })
   
-console.log("NUTRIENTS: "+nutrients);
-}
+// console.log("NUTRIENTS: "+nutrients);
+// }
 
-findMacros();
+// findMacros();
 // console.log("nutr: " + JSON.stringify(nutr));
   return (
     // <div className='overview'>
