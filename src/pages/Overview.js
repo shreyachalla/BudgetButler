@@ -11,40 +11,55 @@ function Overview() {
 
   const fetchNutr=async()=>{
     const currentUser = firebase.auth().currentUser;  
-    // const response=db.collection('users').doc(currentUser.uid).collection('groceries').doc('Chiquita Juicy Red Apple Bites, 2 oz, 5 count');
+  
     const nutrients = [];
 
     db.collection('users').doc(currentUser.uid).collection('groceries').get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-
+      // console.log(doc.id, " => ", doc.data());
 
       let currentID = doc.id;
-      let nutrObj = { ['id']: currentID, ...doc.data()}
-      nutrients.push(nutrObj);
-      // console.log("nutrObj NOT THE SET STATE HOOK: " + JSON.stringify(nutrObj))
+      let nutrObj = {  ...doc.data(), ['id']: currentID}
       
-    // const data=await response.get();
-    // setNutr([...nutr,data.data()])
+      console.log("nutrObj NOT THE SET STATE HOOK: " + JSON.stringify(nutrObj))
+      
+ 
+    setNutr(
+     
+      nutr => [...nutr, nutrObj]
+    );
+    console.log("nutr: " + JSON.stringify(nutr));
   }); 
 
 });
-    setNutr(
-      nutr => [...nutr, {nutrients}]
-      // nutr => [...nutr, nutrObj]
-    );
-    console.log("nutr: " + JSON.stringify(nutr))
-  
+    
+    
+    // console.log("nutr: " + JSON.stringify(nutr))
+    
 }
 
+const findMacros= ()=>{
+  nutr.id.names.name.map(function(mac) {
+    if (mac === "Fat" || mac === "Carbohydrates" || mac === "Protein" || mac === "Calories"){
+      // return true;
+      console.log(mac);
+    }
+    
+  })
+
+}
+    
 
 
   return (
     // <div className='overview'>
     //   <h1>test</h1>
     // </div>
+
+    
     <div>
+      <h4>{findMacros}</h4>
     
       {
         nutr && nutr.map(nutr =>{
