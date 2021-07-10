@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Grocery from "./Grocery";
 import "./GroceryList.css";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import CardColumns from "react-bootstrap/CardColumns";
+import {
+  Button,
+  Card,
+  CardColumns,
+  Col,
+  Row,
+  Container,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {db, firebase} from "../firebase";
-
+import { db, firebase } from "../firebase";
 
 export default function GroceryList({ groceryProductData }) {
-  // console.log(groceryProductData)
+  const [macroData, setMacroData] = useState("");
+  console.log(groceryProductData);
   var productData = groceryProductData.map((obj) => obj.title); //keys
   var groceryData = groceryProductData.map((obj) => obj.id); //values
+  var images = groceryProductData.map((obj) => obj.image);
+  console.log(images);
   var result = {};
   productData.forEach((key, i) => (result[key] = groceryData[i]));
   console.log(result);
@@ -31,35 +38,30 @@ export default function GroceryList({ groceryProductData }) {
       });
   }
 
-  function sendInfo(macroData) {
-
+  function sendInfo(key, macroData) {
     // const Register = () => {
     //   const saveAnswer = (event) => {
     //     event.preventDefault();
-    
     //     const elementsArray = [...event.target.elements];
-    
     //     const formData = elementsArray.reduce((accumulator, currentValue) => {
     //       if (currentValue.id) {
     //         accumulator[currentValue.id] = currentValue.value;
     //       }
-    
     //       return accumulator;
     //     }, {});
-    
-    //     const currentUser = firebase.auth().currentUser;  
+    //     const currentUser = firebase.auth().currentUser;
     //     // db.collection("users").add(formData);
     //     db.collection("users").doc(currentUser.uid).set(formData);
-  
+
     //   //  this updates values of specific fields
     //     // db.collection("users").doc('rxTB9VY2woYD7C4kRAyb').update({name: "jack"});
-      
     //   };
-          // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
-          const currentUser = firebase.auth().currentUser;  
-          db.collection('users').doc(currentUser.uid).update({macro: macroData});
-    
-  
+    // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
+    var name = key[0];
+    const currentUser = firebase.auth().currentUser;
+    db.collection("users")
+      .doc(currentUser.uid)
+      .update({ [name]: macroData });
   }
 
   const styles = {
@@ -71,8 +73,8 @@ export default function GroceryList({ groceryProductData }) {
     },
   };
 
-  const [macroData, setMacroData] = useState("");
-
+  const padStyle = {};
+  let i = 0;
   return (
     <main>
       <section className="groceries">
@@ -80,14 +82,31 @@ export default function GroceryList({ groceryProductData }) {
           {Object.entries(result).map((key, value) => {
             return (
               <Card bg="light" className="text-center p-4">
+                <Card.Img
+                  className="w-50"
+                  variant="top"
+                  src={images[i++]}
+                  alt="Image"
+                ></Card.Img>
+
                 <Card.Body>
                   <Card.Text>{key}</Card.Text>
-                  <Button variant="dark" size="lg" onClick={() => getID(value)}>
-                    View Nutrients
-                  </Button>
-                  <Button variant="dark" size="lg" onClick={() => sendInfo(macroData)}>
-                    Add to Cart
-                  </Button>
+                  <Row style={padStyle.padding}>
+                    <Button
+                      variant="dark"
+                      size="sm"
+                      onClick={() => getID(value)}
+                    >
+                      Nutrients
+                    </Button>
+                    <Button
+                      variant="dark"
+                      size="sm"
+                      onClick={() => sendInfo(key, macroData)}
+                    >
+                      Add to Cart
+                    </Button>
+                  </Row>
                 </Card.Body>
               </Card>
             );

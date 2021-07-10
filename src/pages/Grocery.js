@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Grocery({ macroData }) {
+
   return (
     <section className="nutrients">
       <Card.Body>

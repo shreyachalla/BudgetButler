@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function GrocerySetup() {
   const [groceryProductData, setGroceryProductData] = useState([]);
+
   function getGroceryData() {
     let groceryItem = document.getElementById("search").value;
     const api1 = `https://api.spoonacular.com/food/products/search?apiKey=${key}&query=${groceryItem}`;
