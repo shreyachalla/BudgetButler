@@ -82,14 +82,16 @@ const Register = () => {
             <Form.Check
               type="radio"
               label="Male&emsp;"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios1"
+              id="malSex"
+              name="male"
+              value="0"
             />
             <Form.Check
               type="radio"
               label="Female"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios2"
+              id="femSex"
+              name="female"
+              value="1"
             />
           </Form.Group>
           <Form.Group as={Col} controlId="exampleForm.SelectCustomSizeSm">
