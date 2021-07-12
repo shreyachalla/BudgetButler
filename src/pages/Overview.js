@@ -118,7 +118,7 @@ function handleClear() {
       <h2>Fats Consumed: </h2> 
       <h2> Protein Consumed: </h2>  */}
 
-      <button type="submit" onSubmit={handleClear}>Clear Grocery List</button>
+      <button type="submit" onClick={handleClear}>Clear Grocery List</button>
     
     </div>
   );
