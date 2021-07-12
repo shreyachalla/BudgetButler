@@ -2,7 +2,9 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./Signup.css";
-import logo from '../assets/logo3.png';
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "../assets/ellipse23.png";
 
 export default function Login() {
   const emailRef = useRef();
@@ -13,7 +15,7 @@ export default function Login() {
   const history = useHistory();
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
       setError("");
@@ -32,32 +34,67 @@ export default function Login() {
   //   // take user to homePage
   // }
 
-    return (
+  const styles = {
+    padding: {
+      paddingTop: "10vh",
+      paddingRight: "10vw",
+      paddingLeft: "5vw",
+    },
+  };
 
-        <div className="container">
-
-          <div className="leftCol">
-                  <div className="logoCompName">
-                      <img className="logo" src={logo} alt="Logo" />
-                      <h1 className="compName" >BUDGET BUTLER</h1>
-                  </div>
-              </div>
-          
-          <div className="rightCol">
-            <form className="login-form" onSubmit={handleSubmit} id="login-form">
-                <h2 className="registerDir" > Log In Here</h2>
-
-                <label for="email"> Email address</label><br/><br/>
-                <input type="text" id="email" placeholder="Your email" ref={emailRef} required></input> <br></br>
-
-                <label for="password" id="password-label"> Password</label><br/><br/>
-                <input type="text" id="password" placeholder="Your password" ref={passwordRef}required></input> <br></br>
-                
-                    <button disabled={loading} type="submit" > Log In </button> 
-                
-            </form>
-            </div>
+  return (
+    <>
+      <Row>
+        <div className="leftCol" lg={7} md={6} sm={12}>
+          <Col className="logoCompName">
+            <img className="w-75 p-3" id="logo" src={logo} alt="Logo" />
+          </Col>
         </div>
 
-    )
+        {/* <h4>Already have an account? Log In </h4>  */}
+        <Col lg={5} md={6} sm={12} className="text-left mt-5 p-3">
+          <Form className="login-form" id="login-form" onSubmit={handleSubmit}>
+            <Container style={styles.padding}>
+              <Form.Group>
+                <Form.Label>
+                  <h2 className="registerDir">Login to Account</h2>
+                </Form.Label>
+              </Form.Group>
+
+              <Form.Label>Email Address *</Form.Label>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Control
+                  type="email"
+                  className="text-left"
+                  placeholder="Enter email address"
+                  ref={emailRef}
+                  required
+                ></Form.Control>
+              </Form.Group>
+
+              <Form.Label>Password *</Form.Label>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Control
+                  type="password"
+                  className="text-left"
+                  placeholder="Password"
+                  ref={passwordRef}
+                  required
+                ></Form.Control>
+              </Form.Group>
+
+              <Button
+                variant="primary btn-block"
+                disabled={loading}
+                type="submit"
+              >
+                {" "}
+                Login
+              </Button>
+            </Container>
+          </Form>
+        </Col>
+      </Row>
+    </>
+  );
 }

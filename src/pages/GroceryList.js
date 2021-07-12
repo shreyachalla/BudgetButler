@@ -5,17 +5,17 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import CardColumns from "react-bootstrap/CardColumns";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {db, firebase} from "../firebase";
+import { db, firebase } from "../firebase";
 import Overview from "./Overview";
-
 
 export default function GroceryList({ groceryProductData }) {
   // console.log(groceryProductData)
   var productData = groceryProductData.map((obj) => obj.title); //keys
   var groceryData = groceryProductData.map((obj) => obj.id); //values
+  var images = groceryProductData.map((obj) => obj.image);
   var result = {};
-  var forCalc = []; 
-  
+  var forCalc = [];
+
   productData.forEach((key, i) => (result[key] = groceryData[i]));
 
   // console.log("Grocery data: " + groceryData);
@@ -30,12 +30,15 @@ export default function GroceryList({ groceryProductData }) {
       .then((data) => {
         var nutriInfo = data.nutrition.nutrients.map((obj) => obj);
         setMacroData(
-          forCalc = nutriInfo.filter((obj) => obj.name === "Fat" || obj.name === "Carbohydrates" || obj.name === "Protein"
-          || obj.name === "Calories")
-          
-          
-          );
-          // console.log(forCalc);
+          (forCalc = nutriInfo.filter(
+            (obj) =>
+              obj.name === "Fat" ||
+              obj.name === "Carbohydrates" ||
+              obj.name === "Protein" ||
+              obj.name === "Calories"
+          ))
+        );
+        // console.log(forCalc);
       })
       .catch(() => {
         console.log("#2 get request error");
@@ -43,23 +46,20 @@ export default function GroceryList({ groceryProductData }) {
   }
 
   function sendInfo(key, macroData) {
-
     // console.log(key);
     // console.log("This is what I'm printing" + key[0]);
     // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
-    //const [productName, setProductName] = useState(key); 
+    //const [productName, setProductName] = useState(key);
     var name = key[0];
     // macroData += key[0];
-    
-    const currentUser = firebase.auth().currentUser;  
 
-  
+    const currentUser = firebase.auth().currentUser;
+
     // db.collection('users').doc(currentUser.uid).collection('groceries').add({[name] : macroData});
     // db.collection('users').doc(currentUser.uid).collection('groceries').doc(name).set({name:macroData});
-    db.collection('groceries').doc(currentUser.uid).set({[name]: macroData},{merge:true});
-
-    
-  
+    db.collection("groceries")
+      .doc(currentUser.uid)
+      .set({ [name]: macroData }, { merge: true });
   }
 
   const styles = {
@@ -72,7 +72,8 @@ export default function GroceryList({ groceryProductData }) {
   };
 
   const [macroData, setMacroData] = useState("");
-  
+  let i = 0;
+
   return (
     <main>
       <section className="groceries">
@@ -80,12 +81,22 @@ export default function GroceryList({ groceryProductData }) {
           {Object.entries(result).map((key, value) => {
             return (
               <Card bg="light" className="text-center p-4">
+                <Card.Img
+                  className="w-50"
+                  variant="top"
+                  src={images[i++]}
+                  alt="Image"
+                ></Card.Img>
                 <Card.Body>
                   <Card.Text>{key}</Card.Text>
                   <Button variant="dark" size="lg" onClick={() => getID(value)}>
                     View Nutrients
                   </Button>
-                  <Button variant="dark" size="lg" onClick={() => sendInfo(key, macroData)}>
+                  <Button
+                    variant="dark"
+                    size="lg"
+                    onClick={() => sendInfo(key, macroData)}
+                  >
                     Add to Cart
                   </Button>
                 </Card.Body>
@@ -94,7 +105,6 @@ export default function GroceryList({ groceryProductData }) {
           })}
         </CardColumns>
         {macroData && <Grocery macroData={macroData} />}
-      
       </section>
     </main>
   );

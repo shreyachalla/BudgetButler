@@ -1,91 +1,114 @@
 import React from "react";
 import { FaRegRegistered } from "react-icons/fa";
-import {db, firebase} from "../firebase.js";
-import {Link, useHistory} from "react-router-dom";
+import { db, firebase } from "../firebase.js";
+import { Link, useHistory } from "react-router-dom";
+import { Form, Row, Col, Container, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Register = () => {
   const history = useHistory();
 
-    const saveAnswer = (event) => {
-      event.preventDefault();
-  
-      const elementsArray = [...event.target.elements];
-  
-      const formData = elementsArray.reduce((accumulator, currentValue) => {
-        if (currentValue.id) {
-          accumulator[currentValue.id] = currentValue.value;
-        }
-        // accumulator['macros'] = [];
-        console.log(accumulator);
-        return accumulator;
-      }, {});
-  
-      const currentUser = firebase.auth().currentUser;  
-      db.collection("users").doc(currentUser.uid).set(formData);
-      // db.collection('users').doc(currentUser.uid).collection('groceries').add({groceries: "check"});
+  const saveAnswer = (event) => {
+    event.preventDefault();
 
-      history.push('/groceries');
-    };
+    const elementsArray = [...event.target.elements];
 
-    
+    const formData = elementsArray.reduce((accumulator, currentValue) => {
+      if (currentValue.id) {
+        accumulator[currentValue.id] = currentValue.value;
+      }
+      // accumulator['macros'] = [];
+      console.log(accumulator);
+      return accumulator;
+    }, {});
 
-    return (
+    const currentUser = firebase.auth().currentUser;
+    db.collection("users").doc(currentUser.uid).set(formData);
+    // db.collection('users').doc(currentUser.uid).collection('groceries').add({groceries: "check"});
 
-      <div className="container">
-
-      
-        <h1>User Profile</h1>
-        <form onSubmit={saveAnswer}>
-            <div class="formGroup">
-              <label for="username">Username: </label>
-              {/* /*make it so that the username is unchangeable? */}
-              <input type="text" id="username" placeholder="Enter username here..."></input>   
-            </div>
-            <div class="formGroup">
-              <label for="name">Name: </label>
-              <input type="text" id="name" placeholder="Type Full Name here..."></input>
-            </div>
-            <div class="formGroup">
-              <label for="birthday">Date of Birth: </label>
-              <input type="date" id="birthday" name="birthday"></input>
-            </div>
-            <div class="formGroup">
-              <label for="email">Email: </label>
-              <input type="email" id="email" name="email" placeholder="Enter Email here"></input>
-            </div>
-            <div class="formGroup">
-              <label for="height">Height: </label>
-              <input type="number" id="height" placeholder="Type Height here..."></input>
-            </div>
-            <div class="formGroup">
-              <label for="weight">Weight: </label>
-              <input type="number" id="weight" placeholder="Type Weight here..."></input> 
-            </div>
-            <div class="formGroup">
-              <label for="femSex">Female</label>
-              <input type="radio" id="femSex" name="female" value="1"></input>
-              <label for="malSex">Male</label>
-              <input type="radio" id="malSex" name='male' value="0"></input>
-            </div>
-            <div class="formGroup">
-              <label for="activityLevel">Level of Physical Activity</label>
-              <select id="activityLevel">
-                <option value="sedentary">sedentary</option>
-                <option value="lightly active">lightly active</option>
-                <option value="moderately active">moderately active</option>
-                <option value="very active">very active</option>
-                <option value="extremely active">extremely active</option>
-              </select>
-            </div>
-          <button type="submit">Submit to Firebase</button>
-          {/* sedentary, lightly active, moderately active, very active, extremely active */}
-          {/* <div class= */}
-
-        </form>
-        
-      </div>
-    );
+    history.push("/groceries");
   };
-  
+
+  const styles = {
+    padding: {
+      paddingTop: "8vh",
+      paddingRight: "10vw",
+      paddingLeft: "5vw",
+    },
+  };
+
+  return (
+    <>
+      <Container style={styles.padding}>
+        <Form onSubmit={saveAnswer}>
+          <Form.Text>
+            <h1>User Profile</h1>
+          </Form.Text>
+
+          <Form.Group as={Col} controlId="floatingTextarea">
+            <Form.Label id="username">Username</Form.Label>
+            <Form.Control required />
+          </Form.Group>
+          <Form.Group as={Col} controlId="floatingTextarea">
+            <Form.Label id="name">Name</Form.Label>
+            <Form.Control />
+          </Form.Group>
+          <Container>
+            <Row>
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label id="birthday">Birthday</Form.Label>
+                <Form.Control type="date" required />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label id="email">Email</Form.Label>
+                <Form.Control type="email" required />
+              </Form.Group>
+            </Row>
+          </Container>
+          <Container>
+            <Row>
+              <Form.Group as={Col} controlId="floatingTextarea">
+                <Form.Label id="height">Height</Form.Label>
+                <Form.Control type="number" required />
+              </Form.Group>
+              <Form.Group as={Col} controlId="floatingTextarea">
+                <Form.Label id="weight">Weight</Form.Label>
+                <Form.Control type="number" required />
+              </Form.Group>
+            </Row>
+          </Container>
+          <Form.Group as={Row}>
+            <Form.Label>&emsp;&emsp;</Form.Label>
+            <Form.Check
+              type="radio"
+              label="Male&emsp;"
+              name="formHorizontalRadios"
+              id="formHorizontalRadios1"
+            />
+            <Form.Check
+              type="radio"
+              label="Female"
+              name="formHorizontalRadios"
+              id="formHorizontalRadios2"
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="exampleForm.SelectCustomSizeSm">
+            <Form.Label>Level of Physical Activity</Form.Label>
+            <Form.Control as="select" size="sm" id="activityLevel" custom>
+              <option value="sedentary">sedentary</option>
+              <option value="lightly active">lightly active</option>
+              <option value="moderately active">moderately active</option>
+              <option value="very active">very active</option>
+              <option value="extremely active">extremely active</option>
+            </Form.Control>
+          </Form.Group>
+          <Button variant="dark" type="submit">
+            Submit Profile
+          </Button>
+        </Form>
+      </Container>
+    </>
+  );
+};
 
 export default Register;
