@@ -6,6 +6,7 @@ import Card from "react-bootstrap/Card";
 import CardColumns from "react-bootstrap/CardColumns";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {db, firebase} from "../firebase";
+import Overview from "./Overview";
 
 
 export default function GroceryList({ groceryProductData }) {
@@ -13,9 +14,10 @@ export default function GroceryList({ groceryProductData }) {
   var productData = groceryProductData.map((obj) => obj.title); //keys
   var groceryData = groceryProductData.map((obj) => obj.id); //values
   var result = {};
+  var forCalc = []; 
   
   productData.forEach((key, i) => (result[key] = groceryData[i]));
-  // console.log("result: " + result);
+
   // console.log("Grocery data: " + groceryData);
   // console.log("product Data: " + productData)
   function getID(value) {
@@ -26,10 +28,14 @@ export default function GroceryList({ groceryProductData }) {
     fetch(api2)
       .then((response) => response.json())
       .then((data) => {
+        var nutriInfo = data.nutrition.nutrients.map((obj) => obj);
         setMacroData(
-          data.nutrition.nutrients.map((obj) => obj)
+          forCalc = nutriInfo.filter((obj) => obj.name === "Fat" || obj.name === "Carbohydrates" || obj.name === "Protein"
+          || obj.name === "Calories")
+          
           
           );
+          // console.log(forCalc);
       })
       .catch(() => {
         console.log("#2 get request error");
@@ -38,18 +44,16 @@ export default function GroceryList({ groceryProductData }) {
 
   function sendInfo(key, macroData) {
 
-    console.log(key);
-    console.log("This is what I'm printing" + key[0]);
+    // console.log(key);
+    // console.log("This is what I'm printing" + key[0]);
     // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
     //const [productName, setProductName] = useState(key); 
     var name = key[0];
     // macroData += key[0];
-    console.log("macroData: " + typeof( macroData));
-    console.log(macroData);
     
     const currentUser = firebase.auth().currentUser;  
 
-  console.log(macroData);
+  
     // db.collection('users').doc(currentUser.uid).collection('groceries').add({[name] : macroData});
     // db.collection('users').doc(currentUser.uid).collection('groceries').doc(name).set({name:macroData});
     db.collection('groceries').doc(currentUser.uid).set({[name]: macroData},{merge:true});
@@ -90,6 +94,7 @@ export default function GroceryList({ groceryProductData }) {
           })}
         </CardColumns>
         {macroData && <Grocery macroData={macroData} />}
+      
       </section>
     </main>
   );

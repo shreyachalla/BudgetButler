@@ -63,8 +63,17 @@ function iterateNutrients(nutr){
       return nutrients;
   })
  
+}
 
-  
+function handleClear() {
+  const currentUser = firebase.auth().currentUser;    
+  db.collection("groceries").doc(currentUser.uid).delete().then(() => {
+    console.log("Document successfully deleted!");
+}).catch((error) => {
+    console.error("Error removing document: ", error);
+});
+
+
 }
 
   return (
@@ -109,6 +118,7 @@ function iterateNutrients(nutr){
       <h2>Fats Consumed: </h2> 
       <h2> Protein Consumed: </h2>  */}
 
+      <button type="submit" onSubmit={handleClear}>Clear Grocery List</button>
     
     </div>
   );

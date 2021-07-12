@@ -3,7 +3,10 @@ import { Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Grocery({ macroData }) {
+  console.log("I'm in Grocery.js", JSON.stringify(macroData));
+
   return (
+  
     <section className="nutrients">
       <Card.Body>
         <Card.Title variant={"dark"} className="text-center p-4">
