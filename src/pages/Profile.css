@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+.gtDashboard {
+  background-color: #afe5d5;
+  color: white;
+  border-radius: 8px;
+
+  width: 15vw;
+  height: 7vh;
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 80%;
+}
+
+.userName {
+  /* font being overwritten by root.scss? */
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  font-size: xx-large;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: absolute;
+  bottom: 5%;
+}
+.healthInfo {
+  background-color: tomato;
+  border: 25% black;
+}
+.dietaryRestrictions {
+  background-color: turquoise;
+}

@@ -1,9 +1,14 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { homeImg } from "./../assets/meditating.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function LandingPage() {
+  const history = useHistory();
+  const handleClick = ()=>{
+    history.push("/signup");
+  }
   return (
     <>
       <Container className="mt-5">
@@ -15,7 +20,7 @@ export default function LandingPage() {
               Butler helps you ensure that you’re getting all the fruits and
               veggies you need, all without spending more than you can afford.
             </p>
-            <Button variant="dark" type="submit">
+            <Button onClick={handleClick} variant="dark" type="submit">
               Create an Account
             </Button>
           </Col>
