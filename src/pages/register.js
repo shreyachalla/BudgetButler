@@ -67,8 +67,19 @@ const Register = () => {
               <label for="malSex">Male</label>
               <input type="radio" id="malSex" name='male' value="0"></input>
             </div>
+            <div class="formGroup">
+              <label for="activityLevel">Level of Physical Activity</label>
+              <select id="activityLevel">
+                <option value="sedentary">sedentary</option>
+                <option value="lightly active">lightly active</option>
+                <option value="moderately active">moderately active</option>
+                <option value="very active">very active</option>
+                <option value="extremely active">extremely active</option>
+              </select>
+            </div>
           <button type="submit">Submit to Firebase</button>
-          
+          {/* sedentary, lightly active, moderately active, very active, extremely active */}
+          {/* <div class= */}
 
         </form>
         

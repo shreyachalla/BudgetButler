@@ -28,7 +28,9 @@ const Profile = () =>{
               <h4>{blog.height}</h4>
               <h4>{blog.username}</h4>
               <h4>{blog.weight}</h4>
-              <p>{blog.email}</p>
+              <h4>{blog.email}</h4>
+              <h4>{blog.activityLevel}</h4>
+              
             </div>
           )
         })
