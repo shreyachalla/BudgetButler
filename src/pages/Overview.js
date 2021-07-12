@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {db, firebase} from "../firebase.js";
+import Card from "react-bootstrap/Card";
+import CardColumns from "react-bootstrap/CardColumns";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Overview() {
 
@@ -12,7 +15,10 @@ function Overview() {
   useEffect(() => {
     if(nutr.length > 0){
       // iterateNutrients(nutr)
-      console.log("nutr: " + JSON.stringify(nutr));
+      //console.log("nutr: " + JSON.stringify(nutr));
+     // console.log(JSON.stringify({Object.entries(nutr["0"])[0][0]}));
+      console.log(Object.values(nutr["0"])); 
+      //console.log(JSON.stringify({Object.entries(nutr[0])[0][0]}));
     }
   })
 
@@ -60,6 +66,7 @@ function iterateNutrients(nutr){
       }
     }
     console.log("nutrients: " + JSON.stringify(nutrients))
+
       return nutrients;
   })
  
@@ -78,45 +85,52 @@ function handleClear() {
 
   return (
     <div className='overview'>
-        {/* <h1>test</h1> */}
+        
       
-      {/* {
-        nutr && nutr.map(nutrients => {
-          Object.keys(nutrients).map((key) =>{
-            return <h5>{nutrients[key]} </h5>
-          })
-        })
-      } */}
-      {Object.keys(nutr).map((key)=>{
-        return <h5>{JSON.stringify(nutr[key])}</h5>
+{/* {Object.keys(nutr).map((key)=>{ 
+        return (
+        <h5> {JSON.stringify(nutr[key])}</h5>
+        )
       })
       
-      }
-    
-    {/* { */}
-      {/* nutr && nutr.map(nutrients =>{ */}
-        {/* console.log("nutrients") */}
-        {/* console.log("nutrients: "+ JSON.stringify(nutrients)) */}
-      {/* return( */}
-        {/* <div> */}
-        {/* <h4>{nutrients["ARGO TEA"][0].name}</h4> */}
-        {/* nutrients[keys[i]][j] */}
-
-        {/* <h4>{Object.keys(nutrients) }</h4>    */}
-        {/* <h4>{Object.values(nutrients) }</h4> */}
-        {/* </div> */}
-        
-      {/* ) */}
-    {/* })} */}
-    
-    
-    
+    */}
   
        {/* <h1>nutr  </h1>
       <h1>Your Status</h1>
       <h1>Carbs Consumed: </h1> 
       <h2>Fats Consumed: </h2> 
-      <h2> Protein Consumed: </h2>  */}
+       <h2> Protein Consumed: </h2>  */}
+    
+    
+      return (
+        <section>
+          <CardColumns className="even">
+            {Object.entries(nutr["0"]).map((key) => {
+              return (
+                <Card bg="light" className="text-center p-4">
+                  <Card.Body>
+                    <Card.Text>{Object.entries(nutr["0"])[1][0]}</Card.Text>
+                    <Card.Text> 
+                      <h5> {Object.values(nutr["0"])[0][0]["name"]}: {Object.values(nutr["0"])[0][0]["amount"]} 
+                            {Object.values(nutr["0"])[0][0]["unit"]}</h5>
+            
+                    <h5> {Object.values(nutr["0"])[0][1]["name"]}: {Object.values(nutr["0"])[0][1]["amount"]} 
+                          {Object.values(nutr["0"])[0][1]["unit"]}</h5>
+
+                    <h5> {Object.values(nutr["0"])[0][2]["name"]}: {Object.values(nutr["0"])[0][2]["amount"]} 
+                          {Object.values(nutr["0"])[0][2]["unit"]}</h5>
+
+                    <h5> {Object.values(nutr["0"])[0][3]["name"]}: {Object.values(nutr["0"])[0][3]["amount"]} 
+                         {Object.values(nutr["0"])[0][3]["unit"]}</h5> </Card.Text>
+                  </Card.Body>
+                </Card>
+              );
+            })}
+          </CardColumns> 
+          </section>
+      );
+  
+    
 
       <button type="submit" onClick={handleClear}>Clear Grocery List</button>
     
