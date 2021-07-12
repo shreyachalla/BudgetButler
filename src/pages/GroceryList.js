@@ -38,16 +38,21 @@ export default function GroceryList({ groceryProductData }) {
 
   function sendInfo(key, macroData) {
 
-          console.log(key);
-          console.log("This is what I'm printing" + key[0]);
-          // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
-          //const [productName, setProductName] = useState(key); 
-          var name = key[0];
-          const currentUser = firebase.auth().currentUser;  
+    console.log(key);
+    console.log("This is what I'm printing" + key[0]);
+    // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
+    //const [productName, setProductName] = useState(key); 
+    var name = key[0];
+    // macroData += key[0];
+    console.log("macroData: " + typeof( macroData));
+    console.log(macroData);
+    
+    const currentUser = firebase.auth().currentUser;  
 
-        console.log(macroData);
-          // db.collection('users').doc(currentUser.uid).collection('groceries').add({[name] : macroData});
-          db.collection('users').doc(currentUser.uid).collection('groceries').doc(name).set({names:macroData});
+  console.log(macroData);
+    // db.collection('users').doc(currentUser.uid).collection('groceries').add({[name] : macroData});
+    // db.collection('users').doc(currentUser.uid).collection('groceries').doc(name).set({name:macroData});
+    db.collection('groceries').doc(currentUser.uid).set({[name]: macroData},{merge:true});
 
     
   
