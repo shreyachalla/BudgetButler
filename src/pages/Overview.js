@@ -19,6 +19,8 @@ function Overview() {
      // console.log(JSON.stringify({Object.entries(nutr["0"])[0][0]}));
     console.log(Object.keys(nutr)); 
       //console.log(JSON.stringify({Object.entries(nutr[0])[0][0]}));
+    } else {
+      outOfOrder(); 
     }
   })
 
@@ -83,61 +85,44 @@ function handleClear() {
 
 }
 
+function outOfOrder() {
   return (
+    <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>
+  )
+}
+
+
+  return (
+  
     <div className='overview'>
-        
-      
+    
+    
     {Object.keys(nutr).map((key)=>{ 
         return (
+          
           <div> 
-        <h5> {Object.entries(nutr["0"])[key]["0"]}</h5>
-        <h5> {Object.values(nutr["0"])[key]["0"]["name"]}: {Object.values(nutr["0"])[key]["0"]["amount"]} 
-                            {Object.values(nutr["0"])[key]["0"]["unit"]}</h5>
-        <h5> {Object.values(nutr["0"])[key]["1"]["name"]}: {Object.values(nutr["0"])[key]["1"]["amount"]} 
-                          {Object.values(nutr["0"])[key]["1"]["unit"]}</h5>
-        <h5> {Object.values(nutr["0"])[key]["2"]["name"]}: {Object.values(nutr["0"])[key]["2"]["amount"]} 
-                          {Object.values(nutr["0"])[key]["2"]["unit"]}</h5>
-        <h5> {Object.values(nutr["0"])[key]["3"]["name"]}: {Object.values(nutr["0"])[key]["3"]["amount"]} 
-                         {Object.values(nutr["0"])[key]["3"]["unit"]}</h5> 
-        </div> 
-        )
-      })}
-      
-   
-  
-       {/* <h1>nutr  </h1>
-      <h1>Your Status</h1>
-      <h1>Carbs Consumed: </h1> 
-      <h2>Fats Consumed: </h2> 
-       <h2> Protein Consumed: </h2>  */}
-    
-    
-      
-         
-        
-              
-               
-               { /* {Object.keys(nutr).map((key)=>{
-                    return (
-                  <h4>{Object.entries(nutr["0"])[key][0]}</h4>
+            {Object.keys(nutr[key]).map((product)=> {
+              return (
+                <div> 
+                <h5>{product}</h5>
+                {Object.keys(nutr[key][product]).map((nutrient) => {
                   
-                      <h5> {Object.values(nutr["0"])[0][0]["name"]}: {Object.values(nutr["0"])[0][0]["amount"]} 
-                            {Object.values(nutr["0"])[0][0]["unit"]}</h5>
-            
-                    <h5> {Object.values(nutr["0"])[0][1]["name"]}: {Object.values(nutr["0"])[0][1]["amount"]} 
-                          {Object.values(nutr["0"])[0][1]["unit"]}</h5>
+                  return (
+                      <h5>{nutr[key][product][nutrient]["name"]}: {nutr[key][product][nutrient]["amount"]}{nutr[key][product][0]["unit"]}</h5>
+                  );
+        
+                })}) ) 
+                
 
-                    <h5> {Object.values(nutr["0"])[0][2]["name"]}: {Object.values(nutr["0"])[0][2]["amount"]} 
-                          {Object.values(nutr["0"])[0][2]["unit"]}</h5>
-
-                    <h5> {Object.values(nutr["0"])[0][3]["name"]}: {Object.values(nutr["0"])[0][3]["amount"]} 
-                         {Object.values(nutr["0"])[0][3]["unit"]}</h5> 
-              
-                );
-                    )}} */}
-           
-
-    
+                </div> 
+              );
+               
+            })}
+         
+       </div> 
+      ); 
+    })}); 
+      
 
       <button type="submit" onClick={handleClear}>Clear Grocery List</button>
     
