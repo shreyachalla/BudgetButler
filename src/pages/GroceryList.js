@@ -11,6 +11,8 @@ import Overview from "./Overview";
 export default function GroceryList({ groceryProductData }) {
   // console.log(groceryProductData)
   var productData = groceryProductData.map((obj) => obj.title); //keys
+  console.log(productData);
+  
   var groceryData = groceryProductData.map((obj) => obj.id); //values
   var images = groceryProductData.map((obj) => obj.image);
   var result = {};
