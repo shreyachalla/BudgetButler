@@ -12,9 +12,10 @@ export default function GroceryList({ groceryProductData }) {
   // console.log(groceryProductData)
   var productData = groceryProductData.map((obj) => obj.title); //keys
   console.log(productData);
-  
+
   var groceryData = groceryProductData.map((obj) => obj.id); //values
   var images = groceryProductData.map((obj) => obj.image);
+
   var result = {};
   var forCalc = [];
 
@@ -31,6 +32,9 @@ export default function GroceryList({ groceryProductData }) {
       .then((response) => response.json())
       .then((data) => {
         var nutriInfo = data.nutrition.nutrients.map((obj) => obj);
+        var prodPrice = data.price;
+        console.log(`price ${prodPrice}`);
+        setPrice(prodPrice);
         setMacroData(
           (forCalc = nutriInfo.filter(
             (obj) =>
@@ -74,6 +78,7 @@ export default function GroceryList({ groceryProductData }) {
   };
 
   const [macroData, setMacroData] = useState("");
+  const [price, setPrice] = useState(0);
   let i = 0;
 
   return (
@@ -106,7 +111,7 @@ export default function GroceryList({ groceryProductData }) {
             );
           })}
         </CardColumns>
-        {macroData && <Grocery macroData={macroData} />}
+        {macroData && <Grocery macroData={macroData} price={price} />}
       </section>
     </main>
   );
