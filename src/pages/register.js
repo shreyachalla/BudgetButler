@@ -45,21 +45,21 @@ const Register = () => {
             <h1>User Profile</h1>
           </Form.Text>
 
-          <Form.Group as={Col} controlId="floatingTextarea">
+          <Form.Group as={Col} controlId="username" >
             <Form.Label id="username">Username</Form.Label>
             <Form.Control required />
           </Form.Group>
-          <Form.Group as={Col} controlId="floatingTextarea">
+          <Form.Group as={Col} controlId="name" >
             <Form.Label id="name">Name</Form.Label>
             <Form.Control />
           </Form.Group>
           <Container>
             <Row>
-              <Form.Group as={Col} controlId="formGridEmail">
+              <Form.Group as={Col} controlId="birthday" >
                 <Form.Label id="birthday">Birthday</Form.Label>
                 <Form.Control type="date" required />
               </Form.Group>
-              <Form.Group as={Col} controlId="formGridEmail">
+              <Form.Group as={Col} controlId="email">
                 <Form.Label id="email">Email</Form.Label>
                 <Form.Control type="email" required />
               </Form.Group>
@@ -67,11 +67,11 @@ const Register = () => {
           </Container>
           <Container>
             <Row>
-              <Form.Group as={Col} controlId="floatingTextarea">
+              <Form.Group as={Col} controlId="height">
                 <Form.Label id="height">Height</Form.Label>
                 <Form.Control type="number" required />
               </Form.Group>
-              <Form.Group as={Col} controlId="floatingTextarea">
+              <Form.Group as={Col} controlId="weight">
                 <Form.Label id="weight">Weight</Form.Label>
                 <Form.Control type="number" required />
               </Form.Group>
@@ -104,6 +104,10 @@ const Register = () => {
               <option value="extremely active">extremely active</option>
             </Form.Control>
           </Form.Group>
+          <Form.Group as={Col} controlId="budget">
+                <Form.Label id="budget">Weekly Budget</Form.Label>
+                <Form.Control type="number" required />
+              </Form.Group>
           <Button variant="dark" type="submit">
             Submit Profile
           </Button>

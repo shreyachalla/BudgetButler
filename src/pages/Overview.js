@@ -3,6 +3,7 @@ import { db, firebase } from "../firebase.js";
 import Card from "react-bootstrap/Card";
 import CardColumns from "react-bootstrap/CardColumns";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ProgressBar from 'react-bootstrap/ProgressBar'; 
 
 function Overview() {
   const [nutr, setNutr] = useState([]);
@@ -102,7 +103,7 @@ function Overview() {
                       <h5>
                         {nutr[key][product][nutrient]["name"]}:{" "}
                         {nutr[key][product][nutrient]["amount"]}
-                        {nutr[key][product][0]["unit"]}
+                        {nutr[key][product][nutrient]["unit"]}
                       </h5>
                     )
                   })}

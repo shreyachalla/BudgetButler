@@ -8,6 +8,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { db, firebase } from "../firebase";
 import Overview from "./Overview";
 
+var runningTotal = 0; 
+var totalCarbs = 0;
+var totalCals = 0; 
+var totalFats = 0; 
+var totalProt = 0; 
 export default function GroceryList({ groceryProductData }) {
   // console.log(groceryProductData)
   var productData = groceryProductData.map((obj) => obj.title); //keys
@@ -18,11 +23,12 @@ export default function GroceryList({ groceryProductData }) {
 
   var result = {};
   var forCalc = [];
+   
 
   productData.forEach((key, i) => (result[key] = groceryData[i]));
 
   // console.log("Grocery data: " + groceryData);
-  // console.log("product Data: " + productData)
+  
   function getID(value) {
     let idData = groceryData[value];
     console.log(value);
@@ -51,14 +57,14 @@ export default function GroceryList({ groceryProductData }) {
       });
   }
 
-  function sendInfo(key, macroData) {
+  function sendInfo(key, macroData, price) {
     // console.log(key);
     // console.log("This is what I'm printing" + key[0]);
     // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
     //const [productName, setProductName] = useState(key);
     var name = key[0];
     // macroData += key[0];
-
+    console.log(macroData);
     const currentUser = firebase.auth().currentUser;
 
     // db.collection('users').doc(currentUser.uid).collection('groceries').add({[name] : macroData});
@@ -66,7 +72,27 @@ export default function GroceryList({ groceryProductData }) {
     db.collection("groceries")
       .doc(currentUser.uid)
       .set({ [name]: macroData }, { merge: true });
+    
+    runningTotal += price; 
+    for (let i = 0; i < macroData.length; i++) {
+      if ((macroData[i]["name"]) === "Carbohydrates") {
+        totalCarbs += macroData[i]["amount"];
+      } else if ((macroData[i]["name"]) === "Calories") {
+        totalCals += macroData[i]["amount"];
+      } else if ((macroData[i]["name"]) === "Fat") {
+        totalFats += macroData[i]["amount"];
+      } else if ((macroData[i]["name"]) === "Protein") {
+        totalProt += macroData[i]["amount"];
+      }
+    }
+    
+    db.collection("users").doc(currentUser.uid).set({totalPrice: runningTotal}, {merge: true});
+    db.collection("users").doc(currentUser.uid).set({totalCarbs: totalCarbs}, {merge: true});
+    db.collection("users").doc(currentUser.uid).set({totalCalories: totalCals}, {merge: true});
+    db.collection("users").doc(currentUser.uid).set({totalFats: totalFats}, {merge: true});
+    db.collection("users").doc(currentUser.uid).set({totalProt: totalProt}, {merge: true});
   }
+
 
   const styles = {
     padding: {
@@ -84,6 +110,7 @@ export default function GroceryList({ groceryProductData }) {
   return (
     <main>
       <section className="groceries">
+        
         <CardColumns style={styles.padding} className="even">
           {Object.entries(result).map((key, value) => {
             return (
@@ -102,7 +129,7 @@ export default function GroceryList({ groceryProductData }) {
                   <Button
                     variant="dark"
                     size="lg"
-                    onClick={() => sendInfo(key, macroData)}
+                    onClick={() => sendInfo(key, macroData, price)}
                   >
                     Add to Cart
                   </Button>
