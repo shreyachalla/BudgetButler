@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 .gtDashboard {
   background-color: #afe5d5;
@@ -13,7 +13,6 @@
 }
 
 .userName {
-  /* font being overwritten by root.scss? */
   font-family: "Lato", sans-serif;
   font-weight: 600;
   font-size: xx-large;
@@ -30,4 +29,4 @@
 }
 .dietaryRestrictions {
   background-color: turquoise;
-}
+} */
