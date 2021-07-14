@@ -48,8 +48,7 @@ const Profile = () => {
                   <Col style={{height: '20vh'}}>
                     <Button
                     onClick={handleClick}
-                    className="text-right"
-                    
+                    className="text-center"
                     style={{backgroundColor: '#AFE5D5', color: 'white', width: '17vw', }}
 
                   >Go To Dashboard</Button>
@@ -59,7 +58,7 @@ const Profile = () => {
                 <Row>
                   <Col lg={6} md={6} sm={12}>
                     <h5 className="text-center" style={{fontWeight: 'bold', fontSize: 'x-large'}}>Health Information</h5>
-                    <Card style={{height:'40vh' ,borderColor: '#AFE5D5', borderRadius: '15% 15% 15% 15% / 12% 12% 12% 12%'}}  className="text-center p-4">
+                    <Card style={{height:'30vh' ,borderColor: '#AFE5D5', borderRadius: '15% 15% 15% 15% / 12% 12% 12% 12%'}}  className="text-center p-4">
                       <Card.Text>
                         <h6>Height: {blog.height}</h6>
                         <h6>Weight: {blog.weight}</h6>
@@ -71,7 +70,7 @@ const Profile = () => {
 
                   <Col lg={6} md={6} sm={12}>
                     <h5 className="text-center" style={{fontWeight: 'bold', fontSize: 'x-large'}}>General Information</h5>
-                    <Card style={{height:'40vh', borderColor: '#AFE5D5', borderRadius: '15% 15% 15% 15% / 12% 12% 12% 12%' }}  className="text-center p-4">
+                    <Card style={{height:'30vh', borderColor: '#AFE5D5', borderRadius: '15% 15% 15% 15% / 12% 12% 12% 12%' }}  className="text-center p-4">
                       <Card.Text>
                         <h6>Budget: {blog.budget}</h6>
                         <h6>Birthday: {blog.birthday}</h6>
