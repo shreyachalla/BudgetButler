@@ -104,16 +104,16 @@ function Overview() {
                         {nutr[key][product][nutrient]["amount"]}
                         {nutr[key][product][0]["unit"]}
                       </h5>
-                    );
+                    )
                   })}
-                  ) )
+                  
                 </div>
               );
             })}
           </div>
         );
       })}
-      );
+      
       <button type="submit" onClick={handleClear}>
         Clear Grocery List
       </button>
