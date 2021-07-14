@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db, firebase } from "../firebase";
 import { useHistory } from "react-router-dom";
 import "./Profile.css";
+import Overview from "./Overview.js";
 import { Card, Container, Image, Row, Col, Button } from "react-bootstrap";
 import { className } from "postcss-selector-parser";
 
@@ -22,7 +23,7 @@ const Profile = () => {
   const handleClick = () => {
     history.push("/overview");
   };
-
+  console.log(blogs);
   const styles = {
     padding: {
       paddingTop: "8vh",
@@ -31,6 +32,7 @@ const Profile = () => {
   };
 
   return (
+    <section>
     <Container style={styles.padding}>
       {blogs &&
         blogs.map((blog) => {
@@ -109,6 +111,9 @@ const Profile = () => {
           );
         })}
     </Container>
+    
+    </section>
+   
   );
 };
 

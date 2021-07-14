@@ -3,6 +3,7 @@ import { db, firebase } from "../firebase.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   ProgressBar,
+  Container, 
   CardColumns,
   Row,
   Col,
@@ -11,11 +12,15 @@ import {
 } from "react-bootstrap";
 
 function Overview() {
+  
   const [nutr, setNutr] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     fetchNutr();
   }, []);
+
+ 
 
   useEffect(() => {
     if (nutr.length > 0) {
@@ -28,13 +33,22 @@ function Overview() {
       outOfOrder();
     }
   });
+  
 
+  
   const fetchNutr = async () => {
     const currentUser = firebase.auth().currentUser;
     const response = db.collection("groceries").doc(currentUser.uid);
     const data = await response.get();
     setNutr([...nutr, data.data()]);
-    // console.log(nutr);
+
+    const response2 = db.collection("users").doc(currentUser.uid);
+    const data2 = await response2.get();
+    setUserInfo ([...userInfo, data2.data()]);
+    console.log(userInfo);
+    console.log(userInfo[0]["budget"]);
+    
+    console.log(nutr);
   };
 
   // const[nutr, setNutr]=useState([]);
@@ -107,12 +121,14 @@ function Overview() {
 
   return (
     <div className="overview">
-      <Row>
-        <Col>
-          <ProgressBar now={60} label="60%" />
-        </Col>
-      </Row>
-      <Row>
+      <Container>
+        <Row>
+          <Col>
+          <ProgressBar now={userInfo[0]["totalPrice"]} max={userInfo[0]["budget"]} label={"You are getting closer."} variant='warning'/> 
+          </Col>
+        </Row>
+      </Container>
+      {/* <Row> 
         {Object.keys(nutr).map((key) => {
           return (
             <div>
@@ -135,7 +151,7 @@ function Overview() {
             </div>
           );
         })}
-      </Row>
+      </Row> */}
       <Button type="submit" onClick={handleClear}>
         Clear Grocery List
       </Button>
