@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { db, firebase } from "../firebase.js";
-import Card from "react-bootstrap/Card";
-import CardColumns from "react-bootstrap/CardColumns";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ProgressBar from 'react-bootstrap/ProgressBar'; 
+import {
+  ProgressBar,
+  CardColumns,
+  Row,
+  Col,
+  Button,
+  Card,
+} from "react-bootstrap";
 
 function Overview() {
   const [nutr, setNutr] = useState([]);
@@ -84,13 +89,16 @@ function Overview() {
         console.error("Error removing document: ", error);
       });
 
-      db.collection('users').doc(currentUser.uid).set({
-        totalCalories:0,
+    db.collection("users").doc(currentUser.uid).set(
+      {
+        totalCalories: 0,
         totalCarbs: 0,
         totalFats: 0,
-        totalProt:0,
-        totalPrice:0
-      }, {merge:true})
+        totalProt: 0,
+        totalPrice: 0,
+      },
+      { merge: true }
+    );
   }
 
   function outOfOrder() {
@@ -99,33 +107,38 @@ function Overview() {
 
   return (
     <div className="overview">
-      {Object.keys(nutr).map((key) => {
-        return (
-          <div>
-            {Object.keys(nutr[key]).map((product) => {
-              return (
-                <div>
-                  <h5>{product}</h5>
-                  {Object.keys(nutr[key][product]).map((nutrient) => {
-                    return (
-                      <h5>
-                        {nutr[key][product][nutrient]["name"]}:{" "}
-                        {nutr[key][product][nutrient]["amount"]}
-                        {nutr[key][product][nutrient]["unit"]}
-                      </h5>
-                    )
-                  })}
-                  
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
-      
-      <button type="submit" onClick={handleClear}>
+      <Row>
+        <Col>
+          <ProgressBar now={60} label="60%" />
+        </Col>
+      </Row>
+      <Row>
+        {Object.keys(nutr).map((key) => {
+          return (
+            <div>
+              {Object.keys(nutr[key]).map((product) => {
+                return (
+                  <div>
+                    <h5>{product}</h5>
+                    {Object.keys(nutr[key][product]).map((nutrient) => {
+                      return (
+                        <h5>
+                          {nutr[key][product][nutrient]["name"]}:{" "}
+                          {nutr[key][product][nutrient]["amount"]}
+                          {nutr[key][product][nutrient]["unit"]}
+                        </h5>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </Row>
+      <Button type="submit" onClick={handleClear}>
         Clear Grocery List
-      </button>
+      </Button>
     </div>
   );
 }
