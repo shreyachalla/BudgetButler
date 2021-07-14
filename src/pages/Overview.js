@@ -83,6 +83,14 @@ function Overview() {
       .catch((error) => {
         console.error("Error removing document: ", error);
       });
+
+      db.collection('users').doc(currentUser.uid).set({
+        totalCalories:0,
+        totalCarbs: 0,
+        totalFats: 0,
+        totalProt:0,
+        totalPrice:0
+      }, {merge:true})
   }
 
   function outOfOrder() {
