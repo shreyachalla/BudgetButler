@@ -20,36 +20,52 @@ function Overview() {
     fetchNutr();
   }, []);
 
- 
+  useEffect(() =>{
+    fetchUserInfo();
+  },[]);
 
   useEffect(() => {
     if (nutr.length > 0) {
-      // iterateNutrients(nutr)
-      //console.log("nutr: " + JSON.stringify(nutr));
-      // console.log(JSON.stringify({Object.entries(nutr["0"])[0][0]}));
-      console.log(Object.keys(nutr));
-      //console.log(JSON.stringify({Object.entries(nutr[0])[0][0]}));
+      console.log(Object.keys(nutr));  /*why is this necesssary*/
+      console.log(JSON.stringify(nutr))
     } else {
-      outOfOrder();
+      // outOfOrder();
+      return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
+      // check if this works otherwise call outOfOrder instead
     }
-  });
-  
+  },[nutr]);
 
-  
+ 
+
+  const currentUser = firebase.auth().currentUser;
+
   const fetchNutr = async () => {
-    const currentUser = firebase.auth().currentUser;
     const response = db.collection("groceries").doc(currentUser.uid);
     const data = await response.get();
+    console.log("data: " + JSON.stringify(data));
     setNutr([...nutr, data.data()]);
 
+  };
+
+  const fetchUserInfo = async() => {
     const response2 = db.collection("users").doc(currentUser.uid);
     const data2 = await response2.get();
+    // console.log("data2: " + JSON.stringify(data2));
     setUserInfo ([...userInfo, data2.data()]);
-    console.log(userInfo);
-    console.log(userInfo[0]["budget"]);
-    
-    console.log(nutr);
-  };
+    // console.log("userinfo: " + userInfo)
+  }
+var sumTotal;
+var definedBudget;
+  useEffect(() => {
+    if (userInfo.length > 0){
+      console.log(JSON.stringify(userInfo))
+      userInfo && userInfo.map(info =>{
+        sumTotal = info.totalPrice;
+        definedBudget = info.budget;
+        console.log("sumTotal: " + sumTotal + "  definedBudget: " + definedBudget);
+      })
+    }
+  },[userInfo])
 
   // const[nutr, setNutr]=useState([]);
   // const[keys, setKeys] = useState([]);
@@ -115,16 +131,16 @@ function Overview() {
     );
   }
 
-  function outOfOrder() {
-    return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
-  }
+  // function outOfOrder() {
+  //   return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
+  // }
 
   return (
     <div className="overview">
       <Container>
         <Row>
           <Col>
-          <ProgressBar now={userInfo[0]["totalPrice"]} max={userInfo[0]["budget"]} label={"You are getting closer."} variant='warning'/> 
+          <ProgressBar now={sumTotal} max={definedBudget} label={"You are getting closer."} variant='warning'/> 
           </Col>
         </Row>
       </Container>

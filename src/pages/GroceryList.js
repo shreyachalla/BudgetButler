@@ -67,8 +67,6 @@ export default function GroceryList({ groceryProductData }) {
     console.log(macroData);
     const currentUser = firebase.auth().currentUser;
 
-    // db.collection('users').doc(currentUser.uid).collection('groceries').add({[name] : macroData});
-    // db.collection('users').doc(currentUser.uid).collection('groceries').doc(name).set({name:macroData});
     db.collection("groceries")
       .doc(currentUser.uid)
       .set({ [name]: macroData }, { merge: true });
