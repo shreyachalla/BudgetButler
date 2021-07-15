@@ -29,8 +29,8 @@ function Overview() {
       console.log(Object.keys(nutr));  /*why is this necesssary*/
       console.log(JSON.stringify(nutr))
     } else {
-      // outOfOrder();
-      return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
+      outOfOrder();
+      // return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
       // check if this works otherwise call outOfOrder instead
     }
   },[nutr]);
@@ -54,17 +54,23 @@ function Overview() {
     setUserInfo ([...userInfo, data2.data()]);
     // console.log("userinfo: " + userInfo)
   }
-var sumTotal;
-var definedBudget;
+// var sumTotal;
+// var definedBudget;
+// const [nutr, setNutr] = useState([]);
+const [sumTotal, setSumTotal] = useState(0);
+// defined Budget will be undefined, because the user is only setting the budget in the registration page
+const [definedBudget, setDefinedBudget] = useState(0);
   useEffect(() => {
     if (userInfo.length > 0){
       console.log(JSON.stringify(userInfo))
       userInfo && userInfo.map(info =>{
-        sumTotal = info.totalPrice;
-        definedBudget = info.budget;
+        setSumTotal(info.totalPrice);
+        // sumTotal = info.totalPrice;
+        setDefinedBudget(info.budget);
+        // definedBudget = info.budget;
         console.log("sumTotal: " + sumTotal + "  definedBudget: " + definedBudget);
       })
-    }
+    } console.log("sumTotal: " + sumTotal)
   },[userInfo])
 
   // const[nutr, setNutr]=useState([]);
@@ -131,16 +137,16 @@ var definedBudget;
     );
   }
 
-  // function outOfOrder() {
-  //   return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
-  // }
+  function outOfOrder() {
+    return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
+  }
 
   return (
     <div className="overview">
       <Container>
         <Row>
           <Col>
-          <ProgressBar now={sumTotal} max={definedBudget} label={"You are getting closer."} variant='warning'/> 
+          <ProgressBar now={sumTotal} max={definedBudget} label={`${sumTotal} out of ${definedBudget}`} variant='warning'/> 
           </Col>
         </Row>
       </Container>

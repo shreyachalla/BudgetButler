@@ -8,15 +8,53 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { db, firebase } from "../firebase";
 import Overview from "./Overview";
 
+
 var runningTotal = 0; 
 var totalCarbs = 0;
 var totalCals = 0; 
 var totalFats = 0; 
 var totalProt = 0; 
+// var runningTotal;
+// var totalCarbs;
+// var totalCals;
+// var totalFats;
+// var totalProt;
+
 export default function GroceryList({ groceryProductData }) {
-  // console.log(groceryProductData)
+  const currentUser = firebase.auth().currentUser;
+  const [userInfo, setUserInfo] = useState([]);
+
+  useEffect(()=>{
+    fetchUserInfo();
+    
+  },[]);
+  useEffect(() =>{
+    if(userInfo.length > 0){
+      userInfo && userInfo.map(info =>{
+        console.log("info: " + JSON.stringify(info))
+        runningTotal = info.totalPrice;
+        totalCarbs = info.totalCarbs;
+        totalCals = info.totalCalories;
+        // console.log("typeof(info.totalCals: " +  typeof(info.totalCals))
+        
+        totalFats = info.totalFats;
+        totalProt = info.totalProt;
+        
+      }) }
+    
+  })
+  const fetchUserInfo = async() => {
+    const response2 = db.collection("users").doc(currentUser.uid);
+    const data2 = await response2.get();
+    setUserInfo ([...userInfo, data2.data()]);
+  }
+
+
+
+
+  
   var productData = groceryProductData.map((obj) => obj.title); //keys
-  console.log(productData);
+  // console.log(productData);
 
   var groceryData = groceryProductData.map((obj) => obj.id); //values
   var images = groceryProductData.map((obj) => obj.image);
@@ -27,7 +65,8 @@ export default function GroceryList({ groceryProductData }) {
 
   productData.forEach((key, i) => (result[key] = groceryData[i]));
 
-  // console.log("Grocery data: " + groceryData);
+  
+
   
   function getID(value) {
     let idData = groceryData[value];
@@ -58,19 +97,15 @@ export default function GroceryList({ groceryProductData }) {
   }
 
   function sendInfo(key, macroData, price) {
-    // console.log(key);
-    // console.log("This is what I'm printing" + key[0]);
-    // const response=db.collection('users').doc("rxTB9VY2woYD7C4kRAyb");
-    //const [productName, setProductName] = useState(key);
     var name = key[0];
     // macroData += key[0];
     console.log(macroData);
-    const currentUser = firebase.auth().currentUser;
+    
 
     db.collection("groceries")
       .doc(currentUser.uid)
       .set({ [name]: macroData }, { merge: true });
-    
+    // running total rn is just the total of shopping cart at the current login instead of the entirety of the time
     runningTotal += price; 
     for (let i = 0; i < macroData.length; i++) {
       if ((macroData[i]["name"]) === "Carbohydrates") {
