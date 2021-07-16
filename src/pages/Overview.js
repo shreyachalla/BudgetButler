@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db, firebase } from "../firebase.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useHistory } from "react-router-dom";
 import MacroCalc from "./MacroCalc";
 import {
   ProgressBar,
@@ -46,8 +47,30 @@ function Overview() {
     return amr
 }
 
-
-
+function Macro(calories, carbsSum, proteinSum, fatSum) {
+  //recommended macro nutrient ratios: 45–65 percent carbohydrates, 10–30 percent protein, 20–35 percent fat
+  let minCarbs = calories * 0.45
+  let maxCarbs = calories * 0.65
+  let minProteins = calories * 0.2
+  let maxProteins = calories * 0.3
+  let minFat = calories * 0.2
+  let maxFat = calories * 0.35
+  //false flag - red, true flag - green
+  // let carbsFlag = false
+  // let proteinFlag = false
+  // let fatFlag = false
+  // //check if user is within recommended ratios 
+  // if(carbsSum >= minCarbs && carbsSum <= maxCarbs) {
+  //   carbsFlag = true
+  // } 
+  // if(proteinSum >= minProteins && proteinSum <= maxProteins) {
+  //   proteinFlag = true
+  // } 
+  // if(fatSum >= minFat && fatSum <= maxFat) {
+  //   fatFlag = true
+  // } 
+  return {minCarbs, maxCarbs, minProteins, maxProteins, minFat, maxFat}
+}
 
   const [nutr, setNutr] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
@@ -60,18 +83,7 @@ function Overview() {
     fetchUserInfo();
   },[]);
 
-  useEffect(() => {
-    if (nutr.length > 0) {
-      console.log(Object.keys(nutr));  /*why is this necesssary*/
-      console.log(JSON.stringify(nutr))
-    } else {
-      outOfOrder();
-      // return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
-      // check if this works otherwise call outOfOrder instead
-    }
-  },[nutr]);
-
- 
+  
 
   const currentUser = firebase.auth().currentUser;
 
@@ -88,7 +100,7 @@ function Overview() {
     const data2 = await response2.get();
     // console.log("data2: " + JSON.stringify(data2));
     setUserInfo ([...userInfo, data2.data()]);
-    // console.log("userinfo: " + userInfo)
+    
   }
 // var sumTotal;
 // var definedBudget;
@@ -133,7 +145,7 @@ const [definedBudget, setDefinedBudget] = useState(0);
 
   
   const calcAMR = Calorie(sex, bday, height, weight, activityLevel);
-  console.log(calcAMR);
+  const reqMacros = Macro(calcAMR, totalCarbs, totalProt, totalFats);
   // const[nutr, setNutr]=useState([]);
   // const[keys, setKeys] = useState([]);
 
@@ -174,7 +186,7 @@ const [definedBudget, setDefinedBudget] = useState(0);
       return nutrients;
     });
   }
-
+  const history = useHistory();
   function handleClear() {
     const currentUser = firebase.auth().currentUser;
     db.collection("groceries")
@@ -197,52 +209,95 @@ const [definedBudget, setDefinedBudget] = useState(0);
       },
       { merge: true }
     );
+    window.location.reload();
+    //history.push("/");
+    return (
+      <link to="/overview"></link>
+  
+    )
+    
+    
   }
 
-  function outOfOrder() {
-    return <h5>Nothing in cart. Please go to Groceries to fill your cart.</h5>;
-  }
+ 
 
-  return (
-    <div className="overview">
+  try {
+    return (
+    
+      <div className="overview">
+        <Container>
+          <Row>
+            <Col>
+            <section> 
+            <h4>Budget:</h4>
+            <ProgressBar now={sumTotal} max={definedBudget} label={`$${sumTotal} out of $${definedBudget}`} variant='warning'/> 
+            <br></br>
+    
+            <h4>Calories (based on User Profile):</h4>
+            <ProgressBar now={totalCal} max={calcAMR} label={`${totalCal}kcal out of ${calcAMR}kcal`}variant='warning'/>
+            <br></br>
+            
+            <h4>Carbohydrates:</h4> 
+            <ProgressBar now={totalCarbs} min={reqMacros[0]} max={reqMacros[1]} label={`${totalCarbs}g Carbs consumed`}variant='danger'/>
+            <br></br>
+            
+            <h4>Protein:</h4>
+            <ProgressBar now={totalProt} min={reqMacros[2]} max={reqMacros[3]} label={`${totalProt}g Protein consumed`}variant='danger'/>
+            <br></br>
+            
+            <h4>Fats:</h4>
+            <ProgressBar now={totalFats} min={reqMacros[4]} max={reqMacros[5]} label={`${totalFats}g Fats consumed`}variant='danger'/>
+            </section>
+            </Col>
+          </Row>
+        </Container>
+        <Row>  
+          
+          {Object.keys(nutr).map((key) => {
+            return (
+              <div>
+                {Object.keys(nutr[key]).map((product) => {
+                  return (
+                    <div>
+                      <h5>{product}</h5>
+                      
+                      {Object.keys(nutr[key][product]).map((nutrient) => {
+                        return (
+                          <h5>
+                            {nutr[key][product][nutrient]["name"]}:{" "}
+                            {nutr[key][product][nutrient]["amount"]}
+                            {nutr[key][product][nutrient]["unit"]}
+                          </h5>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          }) } 
+          
+        </Row> 
+        <Button type="submit" onClick={handleClear}>
+          Clear Grocery List
+        </Button>
+       
+      </div>
+    ); 
+
+  } catch(error) {
+    console.log(error)
+    return (
       <Container>
-        <Row>
-          <Col>
-          <ProgressBar now={sumTotal} max={definedBudget} label={`$${sumTotal} out of $${definedBudget}`} variant='warning'/> 
-          <ProgressBar now={totalCal} max={calcAMR} label={`${totalCal}kcal out of ${calcAMR}kcal`}variant='warning'/> 
-          </Col>
-        </Row>
+          <h1>Please add to cart. We worked really hard to handle this error.</h1>
+          <Button href="/groceries"> See, we even made a button to go to Grocery Shopping </Button>
       </Container>
-      <Row> 
-        {Object.keys(nutr).map((key) => {
-          return (
-            <div>
-              {Object.keys(nutr[key]).map((product) => {
-                return (
-                  <div>
-                    <h5>{product}</h5>
-                    {Object.keys(nutr[key][product]).map((nutrient) => {
-                      return (
-                        <h5>
-                          {nutr[key][product][nutrient]["name"]}:{" "}
-                          {nutr[key][product][nutrient]["amount"]}
-                          {nutr[key][product][nutrient]["unit"]}
-                        </h5>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
-      </Row> 
-      <Button type="submit" onClick={handleClear}>
-        Clear Grocery List
-      </Button>
-     
-    </div>
-  );
+      
+      
+    )
+    
+  }
+  
 }
 
 export default Overview;
