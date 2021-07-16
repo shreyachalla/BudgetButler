@@ -6,14 +6,12 @@ import Card from "react-bootstrap/Card";
 import CardColumns from "react-bootstrap/CardColumns";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { db, firebase } from "../firebase";
-import Overview from "./Overview";
 
-
-var runningTotal = 0; 
+var runningTotal = 0;
 var totalCarbs = 0;
-var totalCals = 0; 
-var totalFats = 0; 
-var totalProt = 0; 
+var totalCals = 0;
+var totalFats = 0;
+var totalProt = 0;
 // var runningTotal;
 // var totalCarbs;
 // var totalCals;
@@ -24,35 +22,30 @@ export default function GroceryList({ groceryProductData }) {
   const currentUser = firebase.auth().currentUser;
   const [userInfo, setUserInfo] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchUserInfo();
-    
-  },[]);
-  useEffect(() =>{
-    if(userInfo.length > 0){
-      userInfo && userInfo.map(info =>{
-        console.log("info: " + JSON.stringify(info))
-        runningTotal = info.totalPrice;
-        totalCarbs = info.totalCarbs;
-        totalCals = info.totalCalories;
-        // console.log("typeof(info.totalCals: " +  typeof(info.totalCals))
-        
-        totalFats = info.totalFats;
-        totalProt = info.totalProt;
-        
-      }) }
-    
-  })
-  const fetchUserInfo = async() => {
+  }, []);
+  useEffect(() => {
+    if (userInfo.length > 0) {
+      userInfo &&
+        userInfo.map((info) => {
+          console.log("info: " + JSON.stringify(info));
+          runningTotal = info.totalPrice;
+          totalCarbs = info.totalCarbs;
+          totalCals = info.totalCalories;
+          // console.log("typeof(info.totalCals: " +  typeof(info.totalCals))
+
+          totalFats = info.totalFats;
+          totalProt = info.totalProt;
+        });
+    }
+  });
+  const fetchUserInfo = async () => {
     const response2 = db.collection("users").doc(currentUser.uid);
     const data2 = await response2.get();
-    setUserInfo ([...userInfo, data2.data()]);
-  }
+    setUserInfo([...userInfo, data2.data()]);
+  };
 
-
-
-
-  
   var productData = groceryProductData.map((obj) => obj.title); //keys
   // console.log(productData);
 
@@ -61,13 +54,9 @@ export default function GroceryList({ groceryProductData }) {
 
   var result = {};
   var forCalc = [];
-   
 
   productData.forEach((key, i) => (result[key] = groceryData[i]));
 
-  
-
-  
   function getID(value) {
     let idData = groceryData[value];
     console.log(value);
@@ -100,32 +89,40 @@ export default function GroceryList({ groceryProductData }) {
     var name = key[0];
     // macroData += key[0];
     console.log(macroData);
-    
 
     db.collection("groceries")
       .doc(currentUser.uid)
       .set({ [name]: macroData }, { merge: true });
     // running total rn is just the total of shopping cart at the current login instead of the entirety of the time
-    runningTotal += price; 
+    runningTotal += price;
     for (let i = 0; i < macroData.length; i++) {
-      if ((macroData[i]["name"]) === "Carbohydrates") {
+      if (macroData[i]["name"] === "Carbohydrates") {
         totalCarbs += macroData[i]["amount"];
-      } else if ((macroData[i]["name"]) === "Calories") {
+      } else if (macroData[i]["name"] === "Calories") {
         totalCals += macroData[i]["amount"];
-      } else if ((macroData[i]["name"]) === "Fat") {
+      } else if (macroData[i]["name"] === "Fat") {
         totalFats += macroData[i]["amount"];
-      } else if ((macroData[i]["name"]) === "Protein") {
+      } else if (macroData[i]["name"] === "Protein") {
         totalProt += macroData[i]["amount"];
       }
     }
-    
-    db.collection("users").doc(currentUser.uid).set({totalPrice: runningTotal}, {merge: true});
-    db.collection("users").doc(currentUser.uid).set({totalCarbs: totalCarbs}, {merge: true});
-    db.collection("users").doc(currentUser.uid).set({totalCalories: totalCals}, {merge: true});
-    db.collection("users").doc(currentUser.uid).set({totalFats: totalFats}, {merge: true});
-    db.collection("users").doc(currentUser.uid).set({totalProt: totalProt}, {merge: true});
-  }
 
+    db.collection("users")
+      .doc(currentUser.uid)
+      .set({ totalPrice: runningTotal }, { merge: true });
+    db.collection("users")
+      .doc(currentUser.uid)
+      .set({ totalCarbs: totalCarbs }, { merge: true });
+    db.collection("users")
+      .doc(currentUser.uid)
+      .set({ totalCalories: totalCals }, { merge: true });
+    db.collection("users")
+      .doc(currentUser.uid)
+      .set({ totalFats: totalFats }, { merge: true });
+    db.collection("users")
+      .doc(currentUser.uid)
+      .set({ totalProt: totalProt }, { merge: true });
+  }
 
   const styles = {
     padding: {
@@ -143,7 +140,6 @@ export default function GroceryList({ groceryProductData }) {
   return (
     <main>
       <section className="groceries">
-        
         <CardColumns style={styles.padding} className="even">
           {Object.entries(result).map((key, value) => {
             return (
