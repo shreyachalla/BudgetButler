@@ -1,11 +1,14 @@
 import React from 'react';
 
-function Calorie(sex, age, feet, inches, lbs, physicalActivity) {
+function MacroCalc({sex, bday, height, weight, activityLevel}) {
+  function Calorie() {
 
     /**Calculate BMR with Mifflin-ST Jeor equation (more accurate)*/
-    let heightInCM = (feet * 30.48) + (inches * 2.54) //converts height from feet + inches to cm
-    let weightInKG = lbs * 0.45359237 //converts weight from lbs to kg
+    let heightInCM = (height * 2.54) //converts height from feet + inches to cm
+    let weightInKG = weight * 0.45359237 //converts weight from lbs to kg
     let userBMR = 0
+    var age = bday => Math.floor((new Date() - new Date(bday).getTime()) / 3.15576e+10)
+    // from StackOverflow Lucas Janon (https://stackoverflow.com/questions/4060004/calculate-age-given-the-birth-date-in-the-format-yyyymmdd)
     if(sex === 'male') {
       userBMR = 10 * weightInKG + 6.25 * heightInCM - 5 * age + 5 
       //unused Harris-Benedict equation:  userBMR = 88.362 + (13.397 * weightInKG) + (4.799 *  heightInCM) - (5.677 * age)
@@ -15,15 +18,15 @@ function Calorie(sex, age, feet, inches, lbs, physicalActivity) {
     } 
     /**Calculate AMR */
     let amr = 0
-    if(physicalActivity === 'sedentary') {
+    if(activityLevel === 'sedentary') {
         amr = userBMR * 1.2
-    } if(physicalActivity === 'lightly active') {
+    } if(activityLevel === 'lightly active') {
         amr = userBMR * 1.375
-    } if(physicalActivity === 'moderately active') {
+    } if(activityLevel === 'moderately active') {
         amr = userBMR * 1.55
-    } if(physicalActivity === 'very active') {
+    } if(activityLevel === 'very active') {
         amr = userBMR * 1.725
-    } if(physicalActivity === 'extremely active') {
+    } if(activityLevel === 'extremely active') {
         amr = userBMR * 1.9
     }
     // dont include thermic effect: let thermicEffect = userBMR * 0.1
@@ -55,10 +58,9 @@ function Macro(calories, carbsSum, proteinSum, fatSum) {
   return {carbsFlag, proteinFlag, fatFlag}
 }
 
-function MacroCalc() {
   return (
     <div className='calorie'>
-      
+      {Calorie()}
     </div>
   );
 }
