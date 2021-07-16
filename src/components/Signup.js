@@ -3,7 +3,6 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import logo from "../assets/ellipse23.png";
 // import styles from "./Signup.css";
-
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaPray } from "react-icons/fa";
