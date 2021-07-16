@@ -208,11 +208,15 @@ function Overview() {
     //Todo: auto refresh
   }
 
-  function variantChanger1(now, max) {
+  function variantChanger0(now, max) {
     return now > max ? "danger" : "success";
   }
+  function variantChanger1(now, max) {
+    if (now < max) return "warning";
+    else if (now > max) return "danger";
+    else return "success";
+  }
   function variantChanger2(now, min, max) {
-    if (now >= min && now <= max) return "success";
     return now >= min && now <= max ? "success" : "danger";
   }
 
@@ -228,7 +232,7 @@ function Overview() {
                   now={sumTotal}
                   max={definedBudget}
                   label={`$${sumTotal} out of $${definedBudget}`}
-                  variant={variantChanger1(sumTotal, definedBudget)}
+                  variant={variantChanger0(sumTotal, definedBudget)}
                 />
                 <br></br>
 
