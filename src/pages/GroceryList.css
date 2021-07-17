@@ -21,12 +21,25 @@ button {
 }
 
 #cardPic {
-  border-radius: 8%;
+  /* border-radius: 8%; */
+  mix-blend-mode: multiply;
 }
 
-/* #nutrButton {
-  background-color: #454849;
+#cardName {
+  font-size: 1.2em;
+  font-weight: 600;
 }
+
+#nutrButton {
+  float: none;
+  margin: 0 auto;
+}
+
 #nutrButton:hover {
-  background-color: #174baa;
-} */
+  color: #174baa;
+}
+
+#subCartName {
+  font-size: 1em;
+  font-weight: 600;
+}

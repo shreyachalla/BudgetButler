@@ -4,6 +4,8 @@ import "./GroceryList.css";
 import { Button, Card, CardColumns, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { db, firebase } from "../firebase";
+import { MdAddShoppingCart } from "react-icons/md";
+import { RiFileList3Line } from "react-icons/ri";
 
 var runningTotal = 0;
 var totalCarbs = 0;
@@ -12,7 +14,7 @@ var totalFats = 0;
 var totalProt = 0;
 
 export default function GroceryList({ groceryProductData }) {
-  var key = process.env.React_App_SPOONACULAR_KEY;
+  const key = process.env.REACT_APP_SPOONACULAR_KEY;
   const currentUser = firebase.auth().currentUser;
   const [userInfo, setUserInfo] = useState([]);
 
@@ -130,6 +132,7 @@ export default function GroceryList({ groceryProductData }) {
   const [macroData, setMacroData] = useState("");
   const [price, setPrice] = useState(0);
   let i = 0;
+  let j = 0;
 
   return (
     <main>
@@ -138,6 +141,7 @@ export default function GroceryList({ groceryProductData }) {
           {Object.entries(result).map((key, value) => {
             return (
               <Card bg="light" className="text-center p-4" id="cardBg">
+                <Card.Text id="cardName">{key[j]}</Card.Text>
                 <Card.Img
                   className="w-50"
                   id="cardPic"
@@ -146,25 +150,25 @@ export default function GroceryList({ groceryProductData }) {
                   alt="Image"
                 ></Card.Img>
                 <Card.Body>
-                  <Card.Text>{key}</Card.Text>
                   <Row>
-                    <Button
-                      id="nutrButton"
-                      variant="dark"
-                      size="sm"
-                      onClick={() => getID(value)}
-                    >
-                      View Nutrients
-                    </Button>
-                    <Button
-                      id="nutrButton"
-                      bg="dark"
-                      variant="dark"
-                      size="sm"
-                      onClick={() => sendInfo(key, macroData, price)}
-                    >
-                      Add to Cart
-                    </Button>
+                    <Col>
+                      <RiFileList3Line
+                        id="nutrButton"
+                        variant="dark"
+                        size={45}
+                        onClick={() => getID(value)}
+                      ></RiFileList3Line>
+                      <Card.Text id="subCartName">View Nutrients</Card.Text>
+                    </Col>
+                    <Col>
+                      <MdAddShoppingCart
+                        id="nutrButton"
+                        variant="dark"
+                        size={45}
+                        onClick={() => sendInfo(key, macroData, price)}
+                      ></MdAddShoppingCart>
+                      <Card.Text id="subCartName">Add to Cart</Card.Text>
+                    </Col>
                   </Row>
                 </Card.Body>
               </Card>
