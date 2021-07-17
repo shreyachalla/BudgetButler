@@ -4,6 +4,7 @@ import { db, firebase } from "../firebase.js";
 import { Link, useHistory } from "react-router-dom";
 import { Form, Row, Col, Container, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AiOutlineFundView } from "react-icons";
 import "./register.css";
 
 const Register = () => {

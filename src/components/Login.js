@@ -84,7 +84,7 @@ export default function Login() {
               </Form.Group>
 
               <Button
-                variant="primary btn-block"
+                variant="dark btn-block"
                 disabled={loading}
                 type="submit"
               >

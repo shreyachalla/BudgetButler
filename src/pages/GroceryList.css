@@ -15,3 +15,18 @@ button {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
 } */
+
+#cardBg {
+  border-color: #bdbdbd;
+}
+
+#cardPic {
+  border-radius: 8%;
+}
+
+/* #nutrButton {
+  background-color: #454849;
+}
+#nutrButton:hover {
+  background-color: #174baa;
+} */

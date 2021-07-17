@@ -98,7 +98,7 @@ export default function Signup() {
                 />
               </Form.Group>
               <Button
-                variant="primary btn-block"
+                variant="dark btn-block"
                 type="submit"
                 onClick={handleSubmit}
               >

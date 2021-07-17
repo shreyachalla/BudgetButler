@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Grocery from "./Grocery";
 import "./GroceryList.css";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import CardColumns from "react-bootstrap/CardColumns";
+import { Button, Card, CardColumns, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { db, firebase } from "../firebase";
 
@@ -124,8 +122,8 @@ export default function GroceryList({ groceryProductData }) {
     padding: {
       paddingTop: "5vh",
       paddingBottom: "5vh",
-      paddingRight: "18vw",
-      paddingLeft: "18vw",
+      paddingRight: "15vw",
+      paddingLeft: "15vw",
     },
   };
 
@@ -139,25 +137,35 @@ export default function GroceryList({ groceryProductData }) {
         <CardColumns style={styles.padding} className="even">
           {Object.entries(result).map((key, value) => {
             return (
-              <Card bg="light" className="text-center p-4">
+              <Card bg="light" className="text-center p-4" id="cardBg">
                 <Card.Img
                   className="w-50"
+                  id="cardPic"
                   variant="top"
                   src={images[i++]}
                   alt="Image"
                 ></Card.Img>
                 <Card.Body>
                   <Card.Text>{key}</Card.Text>
-                  <Button variant="dark" size="lg" onClick={() => getID(value)}>
-                    View Nutrients
-                  </Button>
-                  <Button
-                    variant="dark"
-                    size="lg"
-                    onClick={() => sendInfo(key, macroData, price)}
-                  >
-                    Add to Cart
-                  </Button>
+                  <Row>
+                    <Button
+                      id="nutrButton"
+                      variant="dark"
+                      size="sm"
+                      onClick={() => getID(value)}
+                    >
+                      View Nutrients
+                    </Button>
+                    <Button
+                      id="nutrButton"
+                      bg="dark"
+                      variant="dark"
+                      size="sm"
+                      onClick={() => sendInfo(key, macroData, price)}
+                    >
+                      Add to Cart
+                    </Button>
+                  </Row>
                 </Card.Body>
               </Card>
             );
