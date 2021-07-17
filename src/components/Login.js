@@ -36,7 +36,7 @@ export default function Login() {
 
   const styles = {
     padding: {
-      paddingTop: "10vh",
+      paddingTop: "12vh",
       paddingRight: "10vw",
       paddingLeft: "5vw",
     },
@@ -83,11 +83,7 @@ export default function Login() {
                 ></Form.Control>
               </Form.Group>
 
-              <Button
-                variant="dark btn-block"
-                disabled={loading}
-                type="submit"
-              >
+              <Button variant="dark btn-block" disabled={loading} type="submit">
                 {" "}
                 Login
               </Button>

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { db, firebase } from "../firebase";
 import { useHistory } from "react-router-dom";
 import "./Profile.css";
+import logo from "../assets/dancing.png";
 import Overview from "./Overview.js";
-import { Card, Container, Image, Row, Col, Button } from "react-bootstrap";
-import { className } from "postcss-selector-parser";
+import { Card, Container, Row, Col, Button } from "react-bootstrap";
 
 const Profile = () => {
   const [blogs, setBlogs] = useState([]);
@@ -27,8 +27,13 @@ const Profile = () => {
   const styles = {
     padding: {
       paddingTop: "4vh",
-      paddingBottom: "4vh",
+      paddingBottom: "2vh",
     },
+  };
+
+  const styleCards = {
+    height: "20vh",
+    borderRadius: "15% 15% 15% 15% / 12% 12% 12% 12%",
   };
 
   return (
@@ -40,38 +45,34 @@ const Profile = () => {
               <div className="blog-container">
                 <Container style={styles.padding}>
                   <Row>
-                    <Col style={{ height: "20vh" }}>
-                      <h3 className="text-center">{blog.name.toUpperCase()}</h3>
+                    <Col id="logoProfile" lg={6} md={6} sm={12}>
+                      <img src={logo} alt="logo" id="logoProfile" />
                     </Col>
-                    <Col style={{ height: "20vh" }}>
+                    <Col lg={6} md={6} sm={12}>
+                      <h3 className="text-center" id="myName">
+                        {blog.name.toUpperCase()}
+                      </h3>
                       <Button
+                        id="profileBtn"
+                        variant="dark"
                         onClick={handleClick}
                         className="text-center"
-                        style={{
-                          backgroundColor: "#AFE5D5",
-                          color: "white",
-                          width: "17vw",
-                        }}
                       >
                         Go To Dashboard
                       </Button>
                     </Col>
                   </Row>
+                  <br></br>
+                  <br></br>
                   <Row>
-                    <Col lg={6} md={6} sm={12}>
-                      <h5
-                        className="text-center"
-                        style={{ fontWeight: "bold", fontSize: "x-large" }}
-                      >
+                    <Col lg={6} md={6} sm={12} style={{ height: "33vh" }}>
+                      <h5 className="text-center" id="subInfo">
                         Health Information
                       </h5>
                       <Card
-                        style={{
-                          height: "30vh",
-                          borderColor: "#AFE5D5",
-                          borderRadius: "15% 15% 15% 15% / 12% 12% 12% 12%",
-                        }}
+                        style={styleCards}
                         className="text-center p-4"
+                        bg="light"
                       >
                         <Card.Text>
                           <h6>Height: {blog.height}</h6>
@@ -84,20 +85,14 @@ const Profile = () => {
                       </Card>
                     </Col>
 
-                    <Col lg={6} md={6} sm={12}>
-                      <h5
-                        className="text-center"
-                        style={{ fontWeight: "bold", fontSize: "x-large" }}
-                      >
+                    <Col lg={6} md={6} sm={12} style={{ height: "33vh" }}>
+                      <h5 className="text-center" id="subInfo">
                         General Information
                       </h5>
                       <Card
-                        style={{
-                          height: "30vh",
-                          borderColor: "#AFE5D5",
-                          borderRadius: "15% 15% 15% 15% / 12% 12% 12% 12%",
-                        }}
+                        style={styleCards}
                         className="text-center p-4"
+                        bg="light"
                       >
                         <Card.Text>
                           <h6>Budget: {blog.budget}</h6>

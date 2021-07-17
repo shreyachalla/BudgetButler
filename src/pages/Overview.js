@@ -314,7 +314,7 @@ function Overview() {
             );
           })}
         </Row>
-        <Button type="submit" onClick={handleClear}>
+        <Button variant="dark" type="submit" onClick={handleClear}>
           Clear Grocery List
         </Button>
       </div>
@@ -324,9 +324,13 @@ function Overview() {
     return (
       <Container className="mt-5 p-3">
         <h1>
-          Please add more groceries. Currently, there are no items in your cart.
+          Please add more groceries to your cart. Currently, there are no items
+          added.
         </h1>
-        <Button href="/groceries"> Go Shopping</Button>
+        <Button variant="dark" href="/groceries">
+          {" "}
+          Grocery Shopping
+        </Button>
       </Container>
     );
   }

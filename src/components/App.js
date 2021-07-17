@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "./Login";
 import Signup from "./Signup";
+import Footer from "./Footer";
 import GrocerySetup from "../pages/GrocerySetup";
 import Overview from "../pages/Overview";
 import Reports from "../pages/Reports";
@@ -29,10 +30,6 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/register" component={Register} />
-
-            {/* don't want the navbar on any of the pages above, but when I encapsulat it around the pages below, their content disappears */}
-            {/* when the pages below are within the div, the navbar works and their content is displayed 
-              w/ no navbar for the login, signUp, etc...*/}
 
             <div className="content">
               <Route exact path="/home" component={Home} />

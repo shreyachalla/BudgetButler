@@ -30,3 +30,19 @@
 .dietaryRestrictions {
   background-color: turquoise;
 } */
+
+#subInfo {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+#logoProfile {
+  padding-left: 4vw;
+}
+
+#myName {
+  font-weight: 600;
+  font-size: 2.1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

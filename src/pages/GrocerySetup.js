@@ -21,22 +21,24 @@ function GrocerySetup() {
   }
 
   return (
-    <div className="grocerySetup">
-      <section className="controls">
-        <input
-          id="search"
-          type="text"
-          placeholder="Search for Grocery"
-          autoComplete="off"
-        />
-      </section>
-      <Button variant="dark" onClick={getGroceryData}>
-        Get Grocery Items
-      </Button>{" "}
-      {groceryProductData && (
-        <GroceryList groceryProductData={groceryProductData} />
-      )}
-    </div>
+    <>
+      <div className="grocerySetup">
+        <section className="controls">
+          <input
+            id="search"
+            type="text"
+            placeholder="Search for Grocery"
+            autoComplete="off"
+          />
+        </section>
+        <Button variant="dark" onClick={getGroceryData}>
+          Get Grocery Items
+        </Button>{" "}
+        {groceryProductData && (
+          <GroceryList groceryProductData={groceryProductData} />
+        )}
+      </div>
+    </>
   );
 }
 
