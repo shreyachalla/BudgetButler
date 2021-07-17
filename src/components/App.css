@@ -7,6 +7,10 @@
   font-family: 'Sora', sans-serif;
 }
 
+body {
+  overflow: hidden;
+}
+
 .home,
 .overview,
 .reports,

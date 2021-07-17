@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import logo from "../assets/coffeeIllustration.png";
+import styles from "./landingPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function LandingPage() {
@@ -14,7 +15,7 @@ export default function LandingPage() {
     <>
       <Container className="mt-5">
         <Row>
-          <Col lg={4} md={6} sm={12} className="text-left mt-5 p-3">
+          <Col lg={4} md={6} sm={12} className="text-left mt-4 p-3">
             <h2>Want to eat healthy but don’t know where to start?</h2>
             <br></br>
             <p>
@@ -28,10 +29,9 @@ export default function LandingPage() {
             </Button>
           </Col>
           <Col lg={8} md={6} sm={12}>
-            <img className="w-50 h-75" id="homePg" src={logo} alt="Logo" />
+            {/* <img className="w-50 h-75" id="homePg" src={logo} alt="Logo" /> */}
           </Col>
         </Row>
-
         <Row>
           <Col lg={12} md={12} sm={12} className="text-center mt-5 p-3">
             <h2>About Us</h2>

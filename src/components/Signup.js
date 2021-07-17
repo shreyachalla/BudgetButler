@@ -34,7 +34,6 @@ export default function Signup() {
 
   const styles = {
     padding: {
-      paddingTop: "8vh",
       paddingRight: "10vw",
       paddingLeft: "5vw",
     },
