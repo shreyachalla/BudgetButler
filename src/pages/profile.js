@@ -77,7 +77,9 @@ const Profile = () => {
                           <h6>Height: {blog.height}</h6>
                           <h6>Weight: {blog.weight}</h6>
                           <h6>Activity Level: {blog.activityLevel}</h6>
-                          <h6>Sex: {blog.femSex === "1" ? "Female" : "Male"}</h6>
+                          <h6>
+                            Sex: {blog.femSex === "1" ? "Female" : "Male"}
+                          </h6>
                         </Card.Text>
                       </Card>
                     </Col>

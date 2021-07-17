@@ -1,4 +1,8 @@
-.formGroup {
-  display: block;
-  border: 10px;
+#registerContainer {
+  overflow: hidden;
+}
+
+#registerHeader {
+  font-size: 3rem;
+  font-weight: 700;
 }
