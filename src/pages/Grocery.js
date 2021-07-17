@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Grocery({ macroData, price }) {
   console.log("I'm in Grocery.js", JSON.stringify(macroData));
-
   return (
     <section className="nutrients">
       <Card.Body>

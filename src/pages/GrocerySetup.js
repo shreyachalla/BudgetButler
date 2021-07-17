@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function GrocerySetup() {
+  var key = process.env.React_App_SPOONACULAR_KEY;
   const [groceryProductData, setGroceryProductData] = useState([]);
   function getGroceryData() {
     let groceryItem = document.getElementById("search").value;
@@ -38,9 +39,5 @@ function GrocerySetup() {
     </div>
   );
 }
-//let key = "93e7f0f4d3734c60b15ffed266b08712";
-//let key = "3bb00853f82b44448c83e27b311c0895"
-// let key = "db6a8a86cd074a9f817d81be645b4a11";
-let key = "e75f6bb427c24032b4b6e5b815c65b2c";
 
 export default GrocerySetup;
