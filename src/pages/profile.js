@@ -45,9 +45,18 @@ const Profile = () => {
   };
   function saveEdits(){
     console.log("saveEdits function successfuly called")
+
     var editHeight = document.getElementById("editableHeight")
     var userVersion = editHeight.innerHTML;
-    db.collection("users").doc(firebase.auth().currentUser.uid).update({height: userVersion})
+    var space = userVersion.indexOf(" ");
+    var updated = userVersion.substr(space+1, userVersion.length - 1);
+    db.collection("users").doc(firebase.auth().currentUser.uid).set({height: updated}, {merge: true})
+
+     
+    var userVersion = (document.getElementById("editableWeight")).innerHTML;
+     space = userVersion.indexOf(" ");
+      updated = userVersion.substr(space+1, userVersion.length - 1);
+    db.collection("users").doc(firebase.auth().currentUser.uid).set({weight: updated}, {merge: true})
   }
 
   return (
@@ -91,8 +100,9 @@ const Profile = () => {
                         <Card.Text>
                           {/* have a label? */}
                           
-                          <h6 id="editableHeight" contenteditable="true">Height: {blog.height}</h6>
-                          <h6 id="editableWeight" contenteditable="true">Weight: {blog.weight}</h6>
+                          <h6 id="editableHeight" contenteditable="true">Height(in): {blog.height}</h6>
+                    
+                          <h6 id="editableWeight" contenteditable="true">Weight(lbs): {blog.weight}</h6>
                           <h6>Activity Level: {blog.activityLevel}</h6>
                           <h6>
                             Sex: {blog.femSex === "1" ? "Female" : "Male"}
