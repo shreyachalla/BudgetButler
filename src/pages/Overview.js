@@ -3,6 +3,12 @@ import { db, firebase } from "../firebase.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
 import { ProgressBar, Container, Row, Col, Button } from "react-bootstrap";
+import { MdExpandMore } from "react-icons/md";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@material-ui/core";
 
 function Overview() {
   function Calorie(sex, bday, height, weight, activityLevel) {
@@ -82,31 +88,27 @@ function Overview() {
   const currentUser = firebase.auth().currentUser;
 
   const fetchNutr = async () => {
-    try{
+    try {
       const response = db.collection("groceries").doc(currentUser.uid);
       const data = await response.get();
       console.log("data: " + JSON.stringify(data));
       setNutr([...nutr, data.data()]);
-    }
-    catch(nullUidError){
+    } catch (nullUidError) {
       // ->redirect user to login
       history.push("/login");
     }
-   
   };
 
   const fetchUserInfo = async () => {
-    try{
+    try {
       const response2 = db.collection("users").doc(currentUser.uid);
       const data2 = await response2.get();
-    // console.log("data2: " + JSON.stringify(data2));
-     setUserInfo([...userInfo, data2.data()]);
-    }
-    catch(nullUidError){
+      // console.log("data2: " + JSON.stringify(data2));
+      setUserInfo([...userInfo, data2.data()]);
+    } catch (nullUidError) {
       // ->redirect user to login
       history.push("/login");
     }
-    
   };
   // var sumTotal;
   // var definedBudget;
@@ -158,9 +160,6 @@ function Overview() {
   // const[nutr, setNutr]=useState([]);
   // const[keys, setKeys] = useState([]);
 
-  
-
-  
   function handleClear() {
     const currentUser = firebase.auth().currentUser;
     db.collection("groceries")
@@ -173,12 +172,12 @@ function Overview() {
         console.error("Error removing document: ", error);
       });
 
-        // this re-renders the page since, nutr's state has been changed
-      // fetchNutr(); <-- don't want to call fetchNutr because don't want extra reads with firestore
-      // changing nutr's state re-renders the page, so when emptying the grocery cart, set nutr to empty array with conditional
-      // in return
-      setNutr([]);
-      
+    // this re-renders the page since, nutr's state has been changed
+    // fetchNutr(); <-- don't want to call fetchNutr because don't want extra reads with firestore
+    // changing nutr's state re-renders the page, so when emptying the grocery cart, set nutr to empty array with conditional
+    // in return
+    setNutr([]);
+
     db.collection("users").doc(currentUser.uid).set(
       {
         totalCalories: 0,
@@ -203,13 +202,12 @@ function Overview() {
   function variantChanger2(now, min, max) {
     return now >= min && now <= max ? "success" : "danger";
   }
-  function displayNutrients(){
-    return(
-      <div className="overview">
-      <Container>
-        <Row>
-          <Col>
-            <section>
+  function displayNutrients() {
+    return (
+      <>
+        <Container>
+          <Row className="mt-5 p-3">
+            <Col lg={6} md={6} sm={12}>
               <h4>Budget:</h4>
               <ProgressBar
                 now={sumTotal}
@@ -248,11 +246,7 @@ function Overview() {
                 min={reqMacros[2]}
                 max={reqMacros[3]}
                 label={`${totalProt}g Protein consumed`}
-                variant={variantChanger2(
-                  totalProt,
-                  reqMacros[2],
-                  reqMacros[3]
-                )}
+                variant={variantChanger2(totalProt, reqMacros[2], reqMacros[3])}
               />
               <br></br>
 
@@ -262,49 +256,54 @@ function Overview() {
                 min={reqMacros[4]}
                 max={reqMacros[5]}
                 label={`${totalFats}g Fats consumed`}
-                variant={variantChanger2(
-                  totalFats,
-                  reqMacros[4],
-                  reqMacros[5]
-                )}
+                variant={variantChanger2(totalFats, reqMacros[4], reqMacros[5])}
               />
-            </section>
-          </Col>
-        </Row>
-      </Container>
-      <Row>
-        {Object.keys(nutr).map((key) => {
-          return (
-            <div>
-              {Object.keys(nutr[key]).map((product) => {
+            </Col>
+
+            <Col lg={6} md={6} sm={12}>
+              {Object.keys(nutr).map((key) => {
                 return (
                   <div>
-                    <h5>{product}</h5>
-
-                    {Object.keys(nutr[key][product]).map((nutrient) => {
+                    {Object.keys(nutr[key]).map((product) => {
                       return (
-                        <h5>
-                          {nutr[key][product][nutrient]["name"]}:{" "}
-                          {nutr[key][product][nutrient]["amount"]}
-                          {nutr[key][product][nutrient]["unit"]}
-                        </h5>
+                        <Accordion>
+                          <AccordionSummary
+                            className="text-center"
+                            expandIcon={<MdExpandMore />}
+                          >
+                            <h5>{product}</h5>
+                          </AccordionSummary>
+
+                          {Object.keys(nutr[key][product]).map((nutrient) => {
+                            return (
+                              <AccordionDetails className="justify-content-md-center">
+                                <h5>
+                                  {nutr[key][product][nutrient]["name"]}:{" "}
+                                  {nutr[key][product][nutrient]["amount"]}
+                                  {nutr[key][product][nutrient]["unit"]}
+                                </h5>
+                              </AccordionDetails>
+                            );
+                          })}
+                        </Accordion>
                       );
                     })}
                   </div>
                 );
               })}
-            </div>
-          );
-        })}
-      </Row>
-      <Button variant="dark" type="submit" onClick={handleClear}>
-        Clear Grocery List
-      </Button>
-    </div>
+            </Col>
+          </Row>
+          <Container className="mt-3 p-3">
+            <Button variant="dark" type="submit" onClick={handleClear}>
+              Clear Grocery List
+            </Button>
+          </Container>
+        </Container>
+      </>
     );
   }
-  function displayEmptyCart(){
-    return(
+  function displayEmptyCart() {
+    return (
       <Container className="mt-5 p-3">
         <h1>
           Please add more groceries to your cart. Currently, there are no items
@@ -318,24 +317,16 @@ function Overview() {
     );
   }
 
-  try {   
-      if(nutr.length > 0){
-        return (
-        displayNutrients()
-        );
-      }
-      else{
-        return(
-          displayEmptyCart()
-          );
-        
-      }
-      // when page is refreshed and the database is empty, nutr is undefined
+  try {
+    if (nutr.length > 0) {
+      return displayNutrients();
+    } else {
+      return displayEmptyCart();
+    }
+    // when page is refreshed and the database is empty, nutr is undefined
   } catch (error) {
     console.log(error);
-    return (
-      displayEmptyCart()
-    );
+    return displayEmptyCart();
   }
 }
 
