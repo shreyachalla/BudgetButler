@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Grocery from "./Grocery";
 import "./GroceryList.css";
+import { useHistory } from "react-router-dom";
 import { Button, Card, CardColumns, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { db, firebase } from "../firebase";
@@ -36,10 +37,17 @@ export default function GroceryList({ groceryProductData }) {
         });
     }
   });
+  const history = useHistory();
   const fetchUserInfo = async () => {
-    const response2 = db.collection("users").doc(currentUser.uid);
-    const data2 = await response2.get();
-    setUserInfo([...userInfo, data2.data()]);
+    try{
+      const response2 = db.collection("users").doc(currentUser.uid);
+      const data2 = await response2.get();
+      setUserInfo([...userInfo, data2.data()]);
+  }
+    catch(nullUidError){
+      history.push("/login");
+    }
+    
   };
 
   var productData = groceryProductData.map((obj) => obj.title); //keys

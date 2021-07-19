@@ -70,7 +70,7 @@ function Overview() {
 
   const [nutr, setNutr] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
-
+  const history = useHistory();
   useEffect(() => {
     fetchNutr();
   }, []);
@@ -82,17 +82,31 @@ function Overview() {
   const currentUser = firebase.auth().currentUser;
 
   const fetchNutr = async () => {
-    const response = db.collection("groceries").doc(currentUser.uid);
-    const data = await response.get();
-    console.log("data: " + JSON.stringify(data));
-    setNutr([...nutr, data.data()]);
+    try{
+      const response = db.collection("groceries").doc(currentUser.uid);
+      const data = await response.get();
+      console.log("data: " + JSON.stringify(data));
+      setNutr([...nutr, data.data()]);
+    }
+    catch(nullUidError){
+      // ->redirect user to login
+      history.push("/login");
+    }
+   
   };
 
   const fetchUserInfo = async () => {
-    const response2 = db.collection("users").doc(currentUser.uid);
-    const data2 = await response2.get();
+    try{
+      const response2 = db.collection("users").doc(currentUser.uid);
+      const data2 = await response2.get();
     // console.log("data2: " + JSON.stringify(data2));
-    setUserInfo([...userInfo, data2.data()]);
+     setUserInfo([...userInfo, data2.data()]);
+    }
+    catch(nullUidError){
+      // ->redirect user to login
+      history.push("/login");
+    }
+    
   };
   // var sumTotal;
   // var definedBudget;
@@ -146,7 +160,7 @@ function Overview() {
 
   
 
-  const history = useHistory();
+  
   function handleClear() {
     const currentUser = firebase.auth().currentUser;
     db.collection("groceries")
