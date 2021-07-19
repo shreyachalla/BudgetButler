@@ -12,14 +12,22 @@ const Profile = () => {
   useEffect(() => {
     fetchBlogs();
   }, []);
-
-  const fetchBlogs = async () => {
-    const currentUser = firebase.auth().currentUser;
-    const response = db.collection("users").doc(currentUser.uid);
-    const data = await response.get();
-    setBlogs([...blogs, data.data()]);
-  };
   const history = useHistory();
+  
+  const fetchBlogs = async () => {
+    // error occurs here - when not logged in ->Cannot read property 'uid' of null
+    try{
+      const currentUser = firebase.auth().currentUser;
+      const response = db.collection("users").doc(currentUser.uid);
+      const data = await response.get();
+      setBlogs([...blogs, data.data()]);
+    }
+    catch(nullUidError){
+      // then blogs is empty,  ->redirect user to login
+      history.push("/login");
+    }
+  };
+  
   const handleClick = () => {
     history.push("/overview");
   };
