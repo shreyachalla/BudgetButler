@@ -43,6 +43,12 @@ const Profile = () => {
     height: "20vh",
     borderRadius: "15% 15% 15% 15% / 12% 12% 12% 12%",
   };
+  function saveEdits(){
+    console.log("saveEdits function successfuly called")
+    var editHeight = document.getElementById("editableHeight")
+    var userVersion = editHeight.innerHTML;
+    db.collection("users").doc(firebase.auth().currentUser.uid).update({height: userVersion})
+  }
 
   return (
     <section>
@@ -83,12 +89,17 @@ const Profile = () => {
                         bg="light"
                       >
                         <Card.Text>
-                          <h6>Height: {blog.height}</h6>
-                          <h6>Weight: {blog.weight}</h6>
+                          {/* have a label? */}
+                          
+                          <h6 id="editableHeight" contenteditable="true">Height: {blog.height}</h6>
+                          <h6 id="editableWeight" contenteditable="true">Weight: {blog.weight}</h6>
                           <h6>Activity Level: {blog.activityLevel}</h6>
                           <h6>
                             Sex: {blog.femSex === "1" ? "Female" : "Male"}
                           </h6>
+                          <Button
+                          onClick={()=>saveEdits()}
+                          >click Here to send edits</Button>
                         </Card.Text>
                       </Card>
                     </Col>
