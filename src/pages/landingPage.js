@@ -7,9 +7,6 @@ import Footer from "./../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 export default function LandingPage() {
   const history = useHistory();
-  const handleClick = () => {
-    history.push("/signup");
-  };
 
   return (
     <>
@@ -27,13 +24,25 @@ export default function LandingPage() {
             </p>
             <br></br>
             <Button
-              onClick={handleClick}
+              onClick={()=>{
+                history.push("/signup");
+              }}
               variant="dark"
               type="submit"
               id="landingBtn"
             >
               Create an Account
             </Button>
+            {/* this should be on the top instead of where the navbar is rn */}
+            {/* <Button
+               variant="dark"
+              type="submit"
+              id="landingBtn2"
+              onClick={()=>
+              history.push("/login")}
+            >
+              Sign in!
+            </Button> */}
           </Col>
           <Col lg={7} md={6} sm={12}>
             <img id="homePg" src={logo} alt="Logo" />
