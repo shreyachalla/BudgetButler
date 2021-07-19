@@ -144,43 +144,7 @@ function Overview() {
   // const[nutr, setNutr]=useState([]);
   // const[keys, setKeys] = useState([]);
 
-  //Not used TODO: delete this
-  function iterateNutrients(nutr) {
-    var keys = [];
-    nutr.map((nutrients) => {
-      // console.log("nutrients: " + Object.keys(nutrients))
-      keys = Object.keys(nutrients);
-      // console.log(keys)
-    });
-    console.log(nutr);
-
-    nutr.map((nutrients) => {
-      // console.log(nutrients["ARGO TEA"][0])
-      // .map(o)
-      // if it equals any of the values inside keys, then access the values inside and collect it
-      // nutrients.array.forEach(element => {
-      // console.log("nutrients: " + JSON.stringify(nutrients))
-      var cleanedNutrients = {};
-      for (var i = 0; i < keys.length; i++) {
-        // cleanedNutrients.
-        for (var j = 0; j < nutrients[keys[i]].length; j++) {
-          var eachMacro = nutrients[keys[i]][j];
-          if (
-            eachMacro.name === "Carbohydrates" &&
-            eachMacro.name === "Fat" &&
-            eachMacro.name &&
-            "Protein"
-          ) {
-            delete nutrients[keys[i]][j];
-            j--;
-          }
-        }
-      }
-      console.log("nutrients: " + JSON.stringify(nutrients));
-
-      return nutrients;
-    });
-  }
+  
 
   const history = useHistory();
   function handleClear() {
@@ -195,6 +159,12 @@ function Overview() {
         console.error("Error removing document: ", error);
       });
 
+        // this re-renders the page since, nutr's state has been changed
+      // fetchNutr(); <-- don't want to call fetchNutr because don't want extra reads with firestore
+      // changing nutr's state re-renders the page, so when emptying the grocery cart, set nutr to empty array with conditional
+      // in return
+      setNutr([]);
+      
     db.collection("users").doc(currentUser.uid).set(
       {
         totalCalories: 0,
@@ -219,109 +189,108 @@ function Overview() {
   function variantChanger2(now, min, max) {
     return now >= min && now <= max ? "success" : "danger";
   }
-
-  try {
-    return (
+  function displayNutrients(){
+    return(
       <div className="overview">
-        <Container>
-          <Row>
-            <Col>
-              <section>
-                <h4>Budget:</h4>
-                <ProgressBar
-                  now={sumTotal}
-                  max={definedBudget}
-                  label={`$${sumTotal} out of $${definedBudget}`}
-                  variant={variantChanger0(sumTotal, definedBudget)}
-                />
-                <br></br>
-
-                <h4>Calories (based on User Profile):</h4>
-                <ProgressBar
-                  now={totalCal}
-                  max={calcAMR}
-                  label={`${totalCal}kcal out of ${calcAMR}kcal`}
-                  variant={variantChanger1(totalCal, calcAMR)}
-                />
-                <br></br>
-
-                <h4>Carbohydrates:</h4>
-                <ProgressBar
-                  now={totalCarbs}
-                  min={reqMacros[0]}
-                  max={reqMacros[1]}
-                  label={`${totalCarbs}g Carbs consumed`}
-                  variant={variantChanger2(
-                    totalCarbs,
-                    reqMacros[0],
-                    reqMacros[1]
-                  )}
-                />
-                <br></br>
-
-                <h4>Protein:</h4>
-                <ProgressBar
-                  now={totalProt}
-                  min={reqMacros[2]}
-                  max={reqMacros[3]}
-                  label={`${totalProt}g Protein consumed`}
-                  variant={variantChanger2(
-                    totalProt,
-                    reqMacros[2],
-                    reqMacros[3]
-                  )}
-                />
-                <br></br>
-
-                <h4>Fats:</h4>
-                <ProgressBar
-                  now={totalFats}
-                  min={reqMacros[4]}
-                  max={reqMacros[5]}
-                  label={`${totalFats}g Fats consumed`}
-                  variant={variantChanger2(
-                    totalFats,
-                    reqMacros[4],
-                    reqMacros[5]
-                  )}
-                />
-              </section>
-            </Col>
-          </Row>
-        </Container>
+      <Container>
         <Row>
-          {Object.keys(nutr).map((key) => {
-            return (
-              <div>
-                {Object.keys(nutr[key]).map((product) => {
-                  return (
-                    <div>
-                      <h5>{product}</h5>
+          <Col>
+            <section>
+              <h4>Budget:</h4>
+              <ProgressBar
+                now={sumTotal}
+                max={definedBudget}
+                label={`$${sumTotal} out of $${definedBudget}`}
+                variant={variantChanger0(sumTotal, definedBudget)}
+              />
+              <br></br>
 
-                      {Object.keys(nutr[key][product]).map((nutrient) => {
-                        return (
-                          <h5>
-                            {nutr[key][product][nutrient]["name"]}:{" "}
-                            {nutr[key][product][nutrient]["amount"]}
-                            {nutr[key][product][nutrient]["unit"]}
-                          </h5>
-                        );
-                      })}
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
+              <h4>Calories (based on User Profile):</h4>
+              <ProgressBar
+                now={totalCal}
+                max={calcAMR}
+                label={`${totalCal}kcal out of ${calcAMR}kcal`}
+                variant={variantChanger1(totalCal, calcAMR)}
+              />
+              <br></br>
+
+              <h4>Carbohydrates:</h4>
+              <ProgressBar
+                now={totalCarbs}
+                min={reqMacros[0]}
+                max={reqMacros[1]}
+                label={`${totalCarbs}g Carbs consumed`}
+                variant={variantChanger2(
+                  totalCarbs,
+                  reqMacros[0],
+                  reqMacros[1]
+                )}
+              />
+              <br></br>
+
+              <h4>Protein:</h4>
+              <ProgressBar
+                now={totalProt}
+                min={reqMacros[2]}
+                max={reqMacros[3]}
+                label={`${totalProt}g Protein consumed`}
+                variant={variantChanger2(
+                  totalProt,
+                  reqMacros[2],
+                  reqMacros[3]
+                )}
+              />
+              <br></br>
+
+              <h4>Fats:</h4>
+              <ProgressBar
+                now={totalFats}
+                min={reqMacros[4]}
+                max={reqMacros[5]}
+                label={`${totalFats}g Fats consumed`}
+                variant={variantChanger2(
+                  totalFats,
+                  reqMacros[4],
+                  reqMacros[5]
+                )}
+              />
+            </section>
+          </Col>
         </Row>
-        <Button variant="dark" type="submit" onClick={handleClear}>
-          Clear Grocery List
-        </Button>
-      </div>
+      </Container>
+      <Row>
+        {Object.keys(nutr).map((key) => {
+          return (
+            <div>
+              {Object.keys(nutr[key]).map((product) => {
+                return (
+                  <div>
+                    <h5>{product}</h5>
+
+                    {Object.keys(nutr[key][product]).map((nutrient) => {
+                      return (
+                        <h5>
+                          {nutr[key][product][nutrient]["name"]}:{" "}
+                          {nutr[key][product][nutrient]["amount"]}
+                          {nutr[key][product][nutrient]["unit"]}
+                        </h5>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </Row>
+      <Button variant="dark" type="submit" onClick={handleClear}>
+        Clear Grocery List
+      </Button>
+    </div>
     );
-  } catch (error) {
-    console.log(error);
-    return (
+  }
+  function displayEmptyCart(){
+    return(
       <Container className="mt-5 p-3">
         <h1>
           Please add more groceries to your cart. Currently, there are no items
@@ -332,6 +301,26 @@ function Overview() {
           Grocery Shopping
         </Button>
       </Container>
+    );
+  }
+
+  try {   
+      if(nutr.length > 0){
+        return (
+        displayNutrients()
+        );
+      }
+      else{
+        return(
+          displayEmptyCart()
+          );
+        
+      }
+      // when page is refreshed and the database is empty, nutr is undefined
+  } catch (error) {
+    console.log(error);
+    return (
+      displayEmptyCart()
     );
   }
 }
