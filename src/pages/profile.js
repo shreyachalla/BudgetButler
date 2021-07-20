@@ -13,21 +13,20 @@ const Profile = () => {
     fetchBlogs();
   }, []);
   const history = useHistory();
-  
+
   const fetchBlogs = async () => {
     // error occurs here - when not logged in ->Cannot read property 'uid' of null
-    try{
+    try {
       const currentUser = firebase.auth().currentUser;
       const response = db.collection("users").doc(currentUser.uid);
       const data = await response.get();
       setBlogs([...blogs, data.data()]);
-    }
-    catch(nullUidError){
+    } catch (nullUidError) {
       // then blogs is empty,  ->redirect user to login
       history.push("/login");
     }
   };
-  
+
   const handleClick = () => {
     history.push("/overview");
   };
@@ -40,23 +39,26 @@ const Profile = () => {
   };
 
   const styleCards = {
-    height: "20vh",
+    height: "22vh",
     borderRadius: "15% 15% 15% 15% / 12% 12% 12% 12%",
   };
-  function saveEdits(){
-    console.log("saveEdits function successfuly called")
+  function saveEdits() {
+    console.log("saveEdits function successfuly called");
 
-    var editHeight = document.getElementById("editableHeight")
+    var editHeight = document.getElementById("editableHeight");
     var userVersion = editHeight.innerHTML;
     var space = userVersion.indexOf(" ");
-    var updated = userVersion.substr(space+1, userVersion.length - 1);
-    db.collection("users").doc(firebase.auth().currentUser.uid).set({height: updated}, {merge: true})
+    var updated = userVersion.substr(space + 1, userVersion.length - 1);
+    db.collection("users")
+      .doc(firebase.auth().currentUser.uid)
+      .set({ height: updated }, { merge: true });
 
-     
-    var userVersion = (document.getElementById("editableWeight")).innerHTML;
-     space = userVersion.indexOf(" ");
-      updated = userVersion.substr(space+1, userVersion.length - 1);
-    db.collection("users").doc(firebase.auth().currentUser.uid).set({weight: updated}, {merge: true})
+    var userVersion = document.getElementById("editableWeight").innerHTML;
+    space = userVersion.indexOf(" ");
+    updated = userVersion.substr(space + 1, userVersion.length - 1);
+    db.collection("users")
+      .doc(firebase.auth().currentUser.uid)
+      .set({ weight: updated }, { merge: true });
   }
 
   return (
@@ -99,17 +101,21 @@ const Profile = () => {
                       >
                         <Card.Text>
                           {/* have a label? */}
-                          
-                          <h6 id="editableHeight" contenteditable="true">Height(in): {blog.height}</h6>
-                    
-                          <h6 id="editableWeight" contenteditable="true">Weight(lbs): {blog.weight}</h6>
+
+                          <h6 id="editableHeight" contenteditable="true">
+                            Height(in): {blog.height}
+                          </h6>
+
+                          <h6 id="editableWeight" contenteditable="true">
+                            Weight(lbs): {blog.weight}
+                          </h6>
                           <h6>Activity Level: {blog.activityLevel}</h6>
                           <h6>
                             Sex: {blog.femSex === "1" ? "Female" : "Male"}
                           </h6>
-                          <Button
-                          onClick={()=>saveEdits()}
-                          >click Here to send edits</Button>
+                          <Button onClick={() => saveEdits()} variant="dark">
+                            Save Profile Edits
+                          </Button>
                         </Card.Text>
                       </Card>
                     </Col>
