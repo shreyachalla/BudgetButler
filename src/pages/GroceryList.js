@@ -7,6 +7,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { db, firebase } from "../firebase";
 import { MdAddShoppingCart } from "react-icons/md";
 import { RiFileList3Line } from "react-icons/ri";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@material-ui/core";
+import { MdExpandMore } from "react-icons/md";
 
 var runningTotal = 0;
 var totalCarbs = 0;
@@ -39,15 +45,13 @@ export default function GroceryList({ groceryProductData }) {
   });
   const history = useHistory();
   const fetchUserInfo = async () => {
-    try{
+    try {
       const response2 = db.collection("users").doc(currentUser.uid);
       const data2 = await response2.get();
       setUserInfo([...userInfo, data2.data()]);
-  }
-    catch(nullUidError){
+    } catch (nullUidError) {
       history.push("/login");
     }
-    
   };
 
   var productData = groceryProductData.map((obj) => obj.title); //keys
@@ -160,22 +164,44 @@ export default function GroceryList({ groceryProductData }) {
                 <Card.Body>
                   <Row>
                     <Col>
-                      <RiFileList3Line
-                        id="nutrButton"
-                        variant="dark"
-                        size={45}
-                        onClick={() => getID(value)}
-                      ></RiFileList3Line>
-                      <Card.Text id="subCartName">View Nutrients</Card.Text>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={
+                            <RiFileList3Line
+                              id="nutrButton"
+                              variant="dark"
+                              size={45}
+                              onClick={() => getID(value)}
+                            />
+                          }
+                        >
+                          <Card.Text id="subCartName">View Nutrients</Card.Text>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          {macroData && (
+                            <Grocery macroData={macroData} price={price} />
+                          )}
+                        </AccordionDetails>
+                      </Accordion>
                     </Col>
+                  </Row>
+                  <br></br>
+                  <Row>
                     <Col>
-                      <MdAddShoppingCart
-                        id="nutrButton"
-                        variant="dark"
-                        size={45}
-                        onClick={() => sendInfo(key, macroData, price)}
-                      ></MdAddShoppingCart>
-                      <Card.Text id="subCartName">Add to Cart</Card.Text>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={
+                            <MdAddShoppingCart
+                              id="nutrButton"
+                              variant="dark"
+                              size={45}
+                              onClick={() => sendInfo(key, macroData, price)}
+                            ></MdAddShoppingCart>
+                          }
+                        >
+                          <Card.Text id="subCartName">Add to Cart</Card.Text>
+                        </AccordionSummary>
+                      </Accordion>
                     </Col>
                   </Row>
                 </Card.Body>
@@ -183,7 +209,6 @@ export default function GroceryList({ groceryProductData }) {
             );
           })}
         </CardColumns>
-        {macroData && <Grocery macroData={macroData} price={price} />}
       </section>
     </main>
   );
