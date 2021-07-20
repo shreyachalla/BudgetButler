@@ -14,10 +14,8 @@ function Grocery({ macroData, price }) {
           <Card.Text>
             Amount: {nutrition.amount} {nutrition.unit}
           </Card.Text>
-
-          {/* <ListGroupItem>
-              Percent of Daily Needs: {nutrition.percentOfDailyNeeds} %
-            </ListGroupItem> */}
+          {/* Remove daily need since is calculated based on the user's profile separately */}
+          {/* <h6>Percent of Daily Needs: {nutrition.percentOfDailyNeeds} %</h6> */}
         </>
       ))}
     </Card.Body>
