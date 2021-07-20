@@ -9,6 +9,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@material-ui/core";
+import {AiOutlineClose} from 'react-icons/ai';
 
 function Overview() {
   function Calorie(sex, bday, height, weight, activityLevel) {
@@ -46,7 +47,7 @@ function Overview() {
     }
     // dont include thermic effect: let thermicEffect = userBMR * 0.1
     // let calorieReq = amr + thermicEffect
-    return amr;
+    return amr * 7;
   }
 
   function Macro(calories, carbsSum, proteinSum, fatSum) {
@@ -220,7 +221,7 @@ function Overview() {
               <h4>Calories (based on User Profile):</h4>
               <ProgressBar
                 now={totalCal}
-                max={calcAMR}
+                max={calcAMR} 
                 label={`${totalCal}kcal out of ${calcAMR}kcal`}
                 variant={variantChanger1(totalCal, calcAMR)}
               />
@@ -272,6 +273,13 @@ function Overview() {
                             expandIcon={<MdExpandMore />}
                           >
                             <h5>{product}</h5>
+                            <Button
+                            variant="light"
+                            onClick={()=>handleClick(product)}
+                            >
+                              <AiOutlineClose/>
+                            </Button>
+
                           </AccordionSummary>
 
                           {Object.keys(nutr[key][product]).map((nutrient) => {
@@ -302,6 +310,14 @@ function Overview() {
       </>
     );
   }
+  function handleClick(product){
+    console.log(nutr);
+    sumTotal -= db.collection("groceries").doc(currentUser.uid).get()
+    db.collection("groceries").doc(currentUser.uid).set({
+      [product] : firebase.firestore.FieldValue.delete()}, {merge: true});
+    
+  }
+
   function displayEmptyCart() {
     return (
       <Container className="mt-5 p-3">
