@@ -87,6 +87,15 @@ export default function Login() {
                 {" "}
                 Login
               </Button>
+              <Form.Group className="mb-3">
+                <Form.Row>
+                  <Link to="/signup" className="link">
+                    <Form.Label column="lg" lg={12}>
+                      <h6>Don't have an account? Sign Up</h6>
+                    </Form.Label>
+                  </Link>
+                </Form.Row>
+              </Form.Group>
             </Container>
           </Form>
         </Col>

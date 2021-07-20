@@ -55,7 +55,7 @@ export default function Signup() {
             <Container style={styles.padding}>
               <Form.Group>
                 <Form.Label>
-                  <h2 className="registerDir">Register Account</h2>
+                  <h2 className="registerDir">Create Account</h2>
                 </Form.Label>
               </Form.Group>
               <Form.Label>Email Address *</Form.Label>
@@ -103,7 +103,7 @@ export default function Signup() {
                 type="submit"
                 onClick={handleSubmit}
               >
-                Register Account{" "}
+                Sign Up{" "}
               </Button>{" "}
               <Form.Group className="mb-3">
                 <Form.Row>
