@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
 import { ProgressBar, Container, Row, Col, Button } from "react-bootstrap";
 import { MdExpandMore } from "react-icons/md";
+import {AiOutlineClose} from 'react-icons/ai';
 import {
   Accordion,
   AccordionSummary,
@@ -272,6 +273,13 @@ function Overview() {
                             expandIcon={<MdExpandMore />}
                           >
                             <h5>{product}</h5>
+                             <Button
+                            variant="light"
+                            onClick={()=>handleClick(product)}
+                            >
+                              <AiOutlineClose/>
+                            </Button>
+
                           </AccordionSummary>
 
                           {Object.keys(nutr[key][product]).map((nutrient) => {
@@ -301,6 +309,11 @@ function Overview() {
         </Container>
       </>
     );
+  }
+   function handleClick(product){
+    db.collection("groceries").doc(currentUser.uid).update({
+      [product] : firebase.firestore.FieldValue.delete()
+    })
   }
   function displayEmptyCart() {
     return (
