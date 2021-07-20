@@ -97,11 +97,13 @@ export default function GroceryList({ groceryProductData }) {
     var name = key[0];
     // macroData += key[0];
     console.log(macroData);
-
+    macroData.push({"price": price});
     db.collection("groceries")
       .doc(currentUser.uid)
       .set({ [name]: macroData }, { merge: true });
+    
     // running total rn is just the total of shopping cart at the current login instead of the entirety of the time
+    
     runningTotal += price;
     for (let i = 0; i < macroData.length; i++) {
       if (macroData[i]["name"] === "Carbohydrates") {

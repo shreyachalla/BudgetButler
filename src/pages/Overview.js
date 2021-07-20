@@ -286,13 +286,15 @@ function Overview() {
                             return (
                               <AccordionDetails className="justify-content-md-center">
                                 <h5>
-                                  {nutr[key][product][nutrient]["name"]}:{" "}
+                                  {nutr[key][product][nutrient]["name"]}{" "}
                                   {nutr[key][product][nutrient]["amount"]}
                                   {nutr[key][product][nutrient]["unit"]}
+                                  {nutr[key][product][nutrient]["price"]}
                                 </h5>
                               </AccordionDetails>
                             );
                           })}
+                        
                         </Accordion>
                       );
                     })}
@@ -311,8 +313,20 @@ function Overview() {
     );
   }
   function handleClick(product){
-    console.log(nutr);
-    sumTotal -= db.collection("groceries").doc(currentUser.uid).get()
+    var priceInd = (nutr[0][product]).length - 1;
+    var price = nutr[0][product][priceInd]["price"];
+    let newPrice = sumTotal - price; 
+    db.collection("users").doc(currentUser.uid).set({totalPrice: [newPrice]}, {merge:true});  
+    console.log(nutr[0][product]);
+    let newCals = totalCal - nutr[0][product][1]["amount"]
+    let newCarbs = totalCarbs - nutr[0][product][0]["amount"]
+    let newProt = totalProt - nutr[0][product][3]["amount"]
+    let newFats = totalFats - nutr[0][product][2]["amount"]
+    db.collection("users").doc(currentUser.uid).set({totalCalories: [newCals]}, {merge:true});
+    db.collection("users").doc(currentUser.uid).set({totalCarbs: [newCarbs]}, {merge:true});
+    db.collection("users").doc(currentUser.uid).set({totalProt: [newProt]}, {merge:true});
+    db.collection("users").doc(currentUser.uid).set({totalFats: [newFats]}, {merge:true});
+    
     db.collection("groceries").doc(currentUser.uid).set({
       [product] : firebase.firestore.FieldValue.delete()}, {merge: true});
     

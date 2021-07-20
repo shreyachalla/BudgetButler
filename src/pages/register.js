@@ -121,9 +121,9 @@ const Register = () => {
                 <Form.Control type="number" required />
               </Form.Group>
             </Row>
-            <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Allergies/Restrictions?</Form.Label>
-              <Form.Control as="textarea" rows={2} />
+            <Form.Group controlId="email">
+              <Form.Label id="email">Email Address</Form.Label>
+              <Form.Control type="email" required/>
             </Form.Group>
           </Container>
           <Button variant="dark" type="submit">
