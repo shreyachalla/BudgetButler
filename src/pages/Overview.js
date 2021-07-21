@@ -317,15 +317,30 @@ function Overview() {
     var price = nutr[0][product][priceInd]["price"];
     let newPrice = sumTotal - price; 
     db.collection("users").doc(currentUser.uid).set({totalPrice: [newPrice]}, {merge:true});  
-    console.log(nutr[0][product]);
-    let newCals = totalCal - nutr[0][product][1]["amount"]
-    let newCarbs = totalCarbs - nutr[0][product][0]["amount"]
-    let newProt = totalProt - nutr[0][product][3]["amount"]
-    let newFats = totalFats - nutr[0][product][2]["amount"]
-    db.collection("users").doc(currentUser.uid).set({totalCalories: [newCals]}, {merge:true});
-    db.collection("users").doc(currentUser.uid).set({totalCarbs: [newCarbs]}, {merge:true});
-    db.collection("users").doc(currentUser.uid).set({totalProt: [newProt]}, {merge:true});
-    db.collection("users").doc(currentUser.uid).set({totalFats: [newFats]}, {merge:true});
+    var macrosToPush = []; 
+    {Object.keys(nutr[0][product]).map((nutrient) => {
+        if (nutr[0][product][nutrient]["name"] === "Carbohydrates"){
+          var newCarbs = totalCarbs - nutr[0][product][0]["amount"];
+          macrosToPush.push({totalCarbs: newCarbs}); 
+          
+        } else if (nutr[0][product][nutrient]["name"] === "Calories") {
+          var newCals = totalCal - nutr[0][product][1]["amount"];
+          macrosToPush.push({totalCalories: newCals}); 
+          
+        } else if (nutr[0][product][nutrient]["name"] === "Protein") {
+          var newProt = totalProt - nutr[0][product][3]["amount"]; 
+          macrosToPush.push({totalProt: newProt}); 
+          
+        } else if (nutr[0][product][nutrient]["name"] === "Fat") {
+          var newFats = totalFats - nutr[0][product][2]["amount"]; 
+          macrosToPush.push({totalFats: newFats}); 
+          
+        }
+    })} 
+    
+    db.collection("users").doc(currentUser.uid).set({macrosToPush}, {merge: true} );
+    
+
     
     db.collection("groceries").doc(currentUser.uid).set({
       [product] : firebase.firestore.FieldValue.delete()}, {merge: true});
