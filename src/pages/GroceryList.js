@@ -14,11 +14,11 @@ import {
 } from "@material-ui/core";
 import { MdExpandMore } from "react-icons/md";
 
-var runningTotal = 0;
-var totalCarbs = 0;
-var totalCals = 0;
-var totalFats = 0;
-var totalProt = 0;
+var runningTotal;
+var totalCarbs;
+var totalCals;
+var totalFats;
+var totalProt;
 
 export default function GroceryList({ groceryProductData }) {
   const key = process.env.REACT_APP_SPOONACULAR_KEY;
@@ -119,19 +119,19 @@ export default function GroceryList({ groceryProductData }) {
 
     db.collection("users")
       .doc(currentUser.uid)
-      .set({ totalPrice: runningTotal }, { merge: true });
+      .set({ "totalPrice": runningTotal }, { merge: true });
     db.collection("users")
       .doc(currentUser.uid)
-      .set({ totalCarbs: totalCarbs }, { merge: true });
+      .set({ "totalCarbs": totalCarbs }, { merge: true });
     db.collection("users")
       .doc(currentUser.uid)
-      .set({ totalCalories: totalCals }, { merge: true });
+      .set({ "totalCalories": totalCals }, { merge: true });
     db.collection("users")
       .doc(currentUser.uid)
-      .set({ totalFats: totalFats }, { merge: true });
+      .set({ "totalFats": totalFats }, { merge: true });
     db.collection("users")
       .doc(currentUser.uid)
-      .set({ totalProt: totalProt }, { merge: true });
+      .set({ "totalProt": totalProt }, { merge: true });
   }
 
   const styles = {

@@ -316,23 +316,27 @@ function Overview() {
     var priceInd = (nutr[0][product]).length - 1;
     var price = nutr[0][product][priceInd]["price"];
     let newPrice = sumTotal - price; 
-    db.collection("users").doc(currentUser.uid).set({totalPrice: [newPrice]}, {merge:true});  
+    db.collection("users").doc(currentUser.uid).update({totalPrice: newPrice});  
     var macrosToPush = []; 
     {Object.keys(nutr[0][product]).map((nutrient) => {
         if (nutr[0][product][nutrient]["name"] === "Carbohydrates"){
           var newCarbs = totalCarbs - nutr[0][product][0]["amount"];
+          db.collection("users").doc(currentUser.uid).update({"totalCarbs": newCarbs});
           macrosToPush.push({totalCarbs: newCarbs}); 
           
         } else if (nutr[0][product][nutrient]["name"] === "Calories") {
           var newCals = totalCal - nutr[0][product][1]["amount"];
+          db.collection("users").doc(currentUser.uid).update({"totalCalories": newCals});
           macrosToPush.push({totalCalories: newCals}); 
           
         } else if (nutr[0][product][nutrient]["name"] === "Protein") {
           var newProt = totalProt - nutr[0][product][3]["amount"]; 
+          db.collection("users").doc(currentUser.uid).update({"totalProt": newProt});
           macrosToPush.push({totalProt: newProt}); 
           
         } else if (nutr[0][product][nutrient]["name"] === "Fat") {
           var newFats = totalFats - nutr[0][product][2]["amount"]; 
+          db.collection("users").doc(currentUser.uid).update({"totalFats": newFats});
           macrosToPush.push({totalFats: newFats}); 
           
         }
