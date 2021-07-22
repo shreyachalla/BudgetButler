@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { SidebarData } from "./SidebarData";
-import styles from "./Navbar.css";
+// import * as FaIcons from "react-icons/fa";
+// import * as AiIcons from "react-icons/ai";
+// import { Link } from "react-router-dom";
+// import { SidebarData } from "./SidebarData";
+import "./Navbar.css";
 import { IconContext } from "react-icons";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,13 +11,14 @@ import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import{ firebase} from "../firebase";
 
+
 function Navbars() {
   // const [sidebar, setSidebar] = useState(false);
   // const showSidebar = () => setSidebar(!sidebar);
-  //const history = useHistory();
+  const history = useHistory();
    function handleLogout() {
+    history.push("/login");
     firebase.auth().signOut().then(() => {
-      //history.push("/login");
       // Sign-out successful.
     }).catch((error) => {
       // An error happened.
@@ -48,10 +49,7 @@ function Navbars() {
               <Nav.Link id="animate" href="/profile">
                 Profile
               </Nav.Link>
-              <Nav.Link id="animate" href="/login">
-                Log In
-              </Nav.Link>
-              <Button onClick={handleLogout}>Log Out</Button> 
+              <Button variant="link"onClick={handleLogout}>Log Out</Button> 
             </Nav>
           </Navbar.Collapse>
         </Container>

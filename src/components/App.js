@@ -22,7 +22,7 @@ import LandingPage from "../pages/landingPage";
 function App() {
   return (
     <>
-      <Navbar />
+      
       <Router>
         <AuthProvider>
           <Switch>
@@ -32,6 +32,7 @@ function App() {
             <Route exact path="/register" component={Register} />
 
             <div className="content">
+              <Navbar />
               <Route exact path="/home" component={Home} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/overview" component={Overview} />
