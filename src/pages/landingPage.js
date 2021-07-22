@@ -23,16 +23,28 @@ export default function LandingPage() {
               veggies you need, all without spending more than you can afford.
             </p>
             <br></br>
-            <Button
-              onClick={()=>{
-                history.push("/signup");
-              }}
-              variant="dark"
-              type="submit"
-              id="landingBtn"
-            >
-              Create an Account
-            </Button>
+            <Row>
+              <Button
+                onClick={() => {
+                  history.push("/signup");
+                }}
+                variant="dark"
+                type="submit"
+                id="landingBtn"
+              >
+                Create an Account
+              </Button>
+              <Button
+                onClick={() => {
+                  history.push("/login");
+                }}
+                variant="dark"
+                type="submit"
+                id="landingBtn"
+              >
+                Login to Account
+              </Button>
+            </Row>
             {/* this should be on the top instead of where the navbar is rn */}
             {/* <Button
                variant="dark"

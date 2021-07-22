@@ -9,7 +9,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@material-ui/core";
-import {AiOutlineClose} from 'react-icons/ai';
+import { AiOutlineClose } from "react-icons/ai";
 
 function Overview() {
   function Calorie(sex, bday, height, weight, activityLevel) {
@@ -221,7 +221,7 @@ function Overview() {
               <h4>Calories (based on User Profile):</h4>
               <ProgressBar
                 now={totalCal}
-                max={calcAMR} 
+                max={calcAMR}
                 label={`${totalCal}kcal out of ${calcAMR}kcal`}
                 variant={variantChanger1(totalCal, calcAMR)}
               />
@@ -274,12 +274,11 @@ function Overview() {
                           >
                             <h5>{product}</h5>
                             <Button
-                            variant="light"
-                            onClick={()=>handleClick(product)}
+                              variant="light"
+                              onClick={() => handleClick(product)}
                             >
-                              <AiOutlineClose/>
+                              <AiOutlineClose />
                             </Button>
-
                           </AccordionSummary>
 
                           {Object.keys(nutr[key][product]).map((nutrient) => {
@@ -294,7 +293,6 @@ function Overview() {
                               </AccordionDetails>
                             );
                           })}
-                        
                         </Accordion>
                       );
                     })}
@@ -312,43 +310,56 @@ function Overview() {
       </>
     );
   }
-  function handleClick(product){
-    var priceInd = (nutr[0][product]).length - 1;
+  function handleClick(product) {
+    var priceInd = nutr[0][product].length - 1;
     var price = nutr[0][product][priceInd]["price"];
-    let newPrice = sumTotal - price; 
-    db.collection("users").doc(currentUser.uid).update({totalPrice: newPrice});  
-    var macrosToPush = []; 
-    {Object.keys(nutr[0][product]).map((nutrient) => {
-        if (nutr[0][product][nutrient]["name"] === "Carbohydrates"){
+    let newPrice = sumTotal - price;
+    db.collection("users")
+      .doc(currentUser.uid)
+      .update({ totalPrice: newPrice });
+    var macrosToPush = [];
+    {
+      Object.keys(nutr[0][product]).map((nutrient) => {
+        if (nutr[0][product][nutrient]["name"] === "Carbohydrates") {
           var newCarbs = totalCarbs - nutr[0][product][0]["amount"];
-          db.collection("users").doc(currentUser.uid).update({"totalCarbs": newCarbs});
-          macrosToPush.push({totalCarbs: newCarbs}); 
-          
+          db.collection("users")
+            .doc(currentUser.uid)
+            .update({ totalCarbs: newCarbs });
+          macrosToPush.push({ totalCarbs: newCarbs });
         } else if (nutr[0][product][nutrient]["name"] === "Calories") {
           var newCals = totalCal - nutr[0][product][1]["amount"];
-          db.collection("users").doc(currentUser.uid).update({"totalCalories": newCals});
-          macrosToPush.push({totalCalories: newCals}); 
-          
+          db.collection("users")
+            .doc(currentUser.uid)
+            .update({ totalCalories: newCals });
+          macrosToPush.push({ totalCalories: newCals });
         } else if (nutr[0][product][nutrient]["name"] === "Protein") {
-          var newProt = totalProt - nutr[0][product][3]["amount"]; 
-          db.collection("users").doc(currentUser.uid).update({"totalProt": newProt});
-          macrosToPush.push({totalProt: newProt}); 
-          
+          var newProt = totalProt - nutr[0][product][3]["amount"];
+          db.collection("users")
+            .doc(currentUser.uid)
+            .update({ totalProt: newProt });
+          macrosToPush.push({ totalProt: newProt });
         } else if (nutr[0][product][nutrient]["name"] === "Fat") {
-          var newFats = totalFats - nutr[0][product][2]["amount"]; 
-          db.collection("users").doc(currentUser.uid).update({"totalFats": newFats});
-          macrosToPush.push({totalFats: newFats}); 
-          
+          var newFats = totalFats - nutr[0][product][2]["amount"];
+          db.collection("users")
+            .doc(currentUser.uid)
+            .update({ totalFats: newFats });
+          macrosToPush.push({ totalFats: newFats });
         }
-    })} 
-    
-    db.collection("users").doc(currentUser.uid).set({macrosToPush}, {merge: true} );
-    
+      });
+    }
 
-    
-    db.collection("groceries").doc(currentUser.uid).set({
-      [product] : firebase.firestore.FieldValue.delete()}, {merge: true});
-    
+    db.collection("users")
+      .doc(currentUser.uid)
+      .set({ macrosToPush }, { merge: true });
+
+    db.collection("groceries")
+      .doc(currentUser.uid)
+      .set(
+        {
+          [product]: firebase.firestore.FieldValue.delete(),
+        },
+        { merge: true }
+      );
   }
 
   function displayEmptyCart() {

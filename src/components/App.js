@@ -8,8 +8,6 @@ import Signup from "./Signup";
 import Footer from "./Footer";
 import GrocerySetup from "../pages/GrocerySetup";
 import Overview from "../pages/Overview";
-import Reports from "../pages/Reports";
-import Settings from "../pages/Settings";
 import Profile from "../pages/profile";
 import { AuthProvider } from "../contexts/AuthContext";
 import Register from "../pages/register";
@@ -22,7 +20,7 @@ import LandingPage from "../pages/landingPage";
 function App() {
   return (
     <>
-      
+      <Navbar />
       <Router>
         <AuthProvider>
           <Switch>
@@ -32,13 +30,10 @@ function App() {
             <Route exact path="/register" component={Register} />
 
             <div className="content">
-              <Navbar />
-              <Route exact path="/home" component={Home} />
+              {/* <Route exact path="/home" component={Home} /> */}
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/overview" component={Overview} />
-              <Route exact path="/reports" component={Reports} />
               <Route exact path="/groceries" component={GrocerySetup} />
-              <Route exact path="/settings" component={Settings} />
             </div>
           </Switch>
         </AuthProvider>

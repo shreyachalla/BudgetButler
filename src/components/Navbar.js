@@ -49,7 +49,7 @@ function Navbars() {
               <Nav.Link id="animate" href="/profile">
                 Profile
               </Nav.Link>
-              <Button variant="link"onClick={handleLogout}>Log Out</Button> 
+              <Nav.Link id="animate" variant="link"onClick={handleLogout}>Log Out</Nav.Link> 
             </Nav>
           </Navbar.Collapse>
         </Container>

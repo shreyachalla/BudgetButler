@@ -12,9 +12,7 @@ body {
 }
 
 .home,
-.overview,
-.reports,
-.settings {
+.overview {
   display: flex;
   height: 90vh;
   align-items: center;
