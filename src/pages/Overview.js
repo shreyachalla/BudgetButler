@@ -48,7 +48,7 @@ function Overview() {
     }
     // dont include thermic effect: let thermicEffect = userBMR * 0.1
     // let calorieReq = amr + thermicEffect
-    return amr * 7;
+    return (Math.round(amr * 7) * 100) / 100;
   }
 
   function Macro(calories, carbsSum, proteinSum, fatSum) {
@@ -211,6 +211,7 @@ function Overview() {
           <Row className="mt-5 p-3">
             <Col lg={6} md={6} sm={12}>
               <h4>Budget:</h4>
+              <h6>{`$${sumTotal} out of $${definedBudget}`}</h6>
               <ProgressBar
                 now={sumTotal}
                 max={definedBudget}
@@ -218,8 +219,8 @@ function Overview() {
                 variant={variantChanger0(sumTotal, definedBudget)}
               />
               <br></br>
-
               <h4>Calories (based on User Profile):</h4>
+              <h6>{`${totalCal}kcal out of ${calcAMR}kcal`}</h6>
               <ProgressBar
                 now={totalCal}
                 max={calcAMR}
@@ -227,8 +228,8 @@ function Overview() {
                 variant={variantChanger1(totalCal, calcAMR)}
               />
               <br></br>
-
               <h4>Carbohydrates:</h4>
+              <h6>{`${totalCarbs}g Carbs consumed`}</h6>
               <ProgressBar
                 now={totalCarbs}
                 min={reqMacros[0]}
@@ -241,8 +242,8 @@ function Overview() {
                 )}
               />
               <br></br>
-
               <h4>Protein:</h4>
+              <h6>{`${totalProt}g Protein consumed`}</h6>
               <ProgressBar
                 now={totalProt}
                 min={reqMacros[2]}
@@ -251,8 +252,8 @@ function Overview() {
                 variant={variantChanger2(totalProt, reqMacros[2], reqMacros[3])}
               />
               <br></br>
-
               <h4>Fats:</h4>
+              <h6>{`${totalFats}g Fats consumed`}</h6>
               <ProgressBar
                 now={totalFats}
                 min={reqMacros[4]}
