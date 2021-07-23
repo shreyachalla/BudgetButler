@@ -114,7 +114,7 @@ const Profile = () => {
                             Sex: {blog.femSex === "1" ? "Female" : "Male"}
                           </h6>
                           <Button onClick={() => saveEdits()} variant="dark">
-                            Save Profile Edits
+                            Change Height/ Weight
                           </Button>
                         </Card.Text>
                       </Card>
@@ -134,6 +134,12 @@ const Profile = () => {
                           <h6>Birthday: {blog.birthday}</h6>
                           <h6>Username: {blog.username}</h6>
                           <h6>Email: {blog.email}</h6>
+                          <Button
+                            onClick={() => history.push("/register")}
+                            variant="dark"
+                          >
+                            Change Profile
+                          </Button>
                         </Card.Text>
                       </Card>
                     </Col>

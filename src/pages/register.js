@@ -23,8 +23,12 @@ const Register = () => {
       console.log(accumulator);
       return accumulator;
     }, {});
-
     const currentUser = firebase.auth().currentUser;
+    formData["totalPrice"] = 0;
+    formData["totalCarbs"] = 0;
+    formData["totalFats"] = 0;
+    formData["totalProt"] = 0;
+    formData["totalCalories"] = 0;
     db.collection("users").doc(currentUser.uid).set(formData);
     // db.collection('users').doc(currentUser.uid).collection('groceries').add({groceries: "check"});
 
@@ -123,7 +127,7 @@ const Register = () => {
             </Row>
             <Form.Group controlId="email">
               <Form.Label id="email">Email Address</Form.Label>
-              <Form.Control type="email" required/>
+              <Form.Control type="email" required />
             </Form.Group>
           </Container>
           <Button variant="dark" type="submit">

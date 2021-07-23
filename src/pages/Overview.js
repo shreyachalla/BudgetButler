@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
 import { ProgressBar, Container, Row, Col, Button } from "react-bootstrap";
 import { MdExpandMore } from "react-icons/md";
+import { BsFillTrashFill } from "react-icons/bs";
 import {
   Accordion,
   AccordionSummary,
@@ -274,10 +275,10 @@ function Overview() {
                           >
                             <h5>{product}</h5>
                             <Button
-                              variant="light"
+                              variant="dark"
                               onClick={() => handleClick(product)}
                             >
-                              <AiOutlineClose />
+                              <BsFillTrashFill />
                             </Button>
                           </AccordionSummary>
 

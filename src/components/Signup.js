@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import logo from "../assets/ellipse23.png";
+import logo from "../assets/group170.png";
 // import styles from "./Signup.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -26,7 +26,6 @@ export default function Signup() {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
       history.push("/register");
-      
     } catch {
       setError("Failed to create an account");
     }
@@ -46,7 +45,7 @@ export default function Signup() {
       <Row>
         <div className="leftCol" lg={7} md={6} sm={12}>
           <Col className="logoCompName">
-            <img className="w-75 p-3" id="logo" src={logo} alt="Logo" />
+            <img className="w-50 p-3" id="logo" src={logo} alt="Logo" />
           </Col>
         </div>
 
