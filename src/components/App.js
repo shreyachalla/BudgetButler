@@ -20,8 +20,9 @@ import LandingPage from "../pages/landingPage";
 function App() {
   return (
     <>
-      <Navbar />
+      
       <Router>
+      <Navbar />
         <AuthProvider>
           <Switch>
             <Route exact path="/" component={LandingPage} />
@@ -29,12 +30,12 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/register" component={Register} />
 
-            <div className="content">
+            
               {/* <Route exact path="/home" component={Home} /> */}
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/overview" component={Overview} />
               <Route exact path="/groceries" component={GrocerySetup} />
-            </div>
+            
           </Switch>
         </AuthProvider>
       </Router>

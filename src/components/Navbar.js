@@ -24,7 +24,7 @@ function Navbars() {
       // An error happened.
     });
     
-    }
+     }
   
 
   return (
@@ -49,7 +49,7 @@ function Navbars() {
               <Nav.Link id="animate" href="/profile">
                 Profile
               </Nav.Link>
-              <Nav.Link id="animate" variant="link"onClick={handleLogout}>Log Out</Nav.Link> 
+              <Button variant="dark" onClick={handleLogout}>Log Out</Button> 
             </Nav>
           </Navbar.Collapse>
         </Container>
