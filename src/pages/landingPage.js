@@ -65,7 +65,10 @@ export default function LandingPage() {
             <h2 id="descHeader">About Us</h2>
             <br></br>
             <p id="desc">
-              Budget Butler is a passion-motivated organization dedicated to helping everyday people eat healthily and budget for their groceries. Bridging the gap between healthy eating and reasonable budgeting for free, for everyone. 
+              Budget Butler is a passion-motivated organization dedicated to
+              helping everyday people eat healthily and budget for their
+              groceries. Bridging the gap between healthy eating and reasonable
+              budgeting for free, for everyone.
             </p>
           </Col>
         </Row>
