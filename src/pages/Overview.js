@@ -48,17 +48,17 @@ function Overview() {
     }
     // dont include thermic effect: let thermicEffect = userBMR * 0.1
     // let calorieReq = amr + thermicEffect
-    return (Math.round(amr * 7) * 100) / 100;
+    return (Math.round(amr) * 100) / 100;
   }
 
   function Macro(calories, carbsSum, proteinSum, fatSum) {
     //recommended macro nutrient ratios: 45–65 percent carbohydrates, 10–30 percent protein, 20–35 percent fat
-    let minCarbs = calories * 0.45;
-    let maxCarbs = calories * 0.65;
-    let minProteins = calories * 0.2;
-    let maxProteins = calories * 0.3;
-    let minFat = calories * 0.2;
-    let maxFat = calories * 0.35;
+    let minCarbs = ((calories * 0.45) / 4).toFixed(0);
+    let maxCarbs = ((calories * 0.65) / 4).toFixed(0);
+    let minProteins = ((calories * 0.2) / 4).toFixed(0);
+    let maxProteins = ((calories * 0.3) / 4).toFixed(0);
+    let minFat = ((calories * 0.2) / 9).toFixed(0);
+    let maxFat = ((calories * 0.35) / 9).toFixed(0);
     //false flag - red, true flag - green
     // let carbsFlag = false
     // let proteinFlag = false
@@ -145,6 +145,7 @@ function Overview() {
           setActivity(info.activityLevel);
 
           setTotalCarbs(info.totalCarbs);
+
           setTotalFats(info.totalFats);
           setTotalProt(info.totalProt);
 
@@ -161,6 +162,7 @@ function Overview() {
   const reqMacros = Macro(calcAMR, totalCarbs, totalProt, totalFats);
   // const[nutr, setNutr]=useState([]);
   // const[keys, setKeys] = useState([]);
+  console.log("reqMacros test " + JSON.stringify(reqMacros));
 
   function handleClear() {
     const currentUser = firebase.auth().currentUser;
@@ -204,6 +206,7 @@ function Overview() {
   function variantChanger2(now, min, max) {
     return now >= min && now <= max ? "success" : "danger";
   }
+  console.log("Testing output of macros " + reqMacros[0]);
   function displayNutrients() {
     return (
       <>
@@ -229,37 +232,42 @@ function Overview() {
               />
               <br></br>
               <h4>Carbohydrates:</h4>
-              <h6>{`${totalCarbs}g Carbs consumed`}</h6>
+              <h6>{`${totalCarbs}g Carbs consumed in range ${reqMacros["minCarbs"]}g to  ${reqMacros["maxCarbs"]}g`}</h6>
               <ProgressBar
                 now={totalCarbs}
-                min={reqMacros[0]}
-                max={reqMacros[1]}
-                label={`${totalCarbs}g Carbs consumed`}
+                max={reqMacros["maxCarbs"]}
+                label={`${totalCarbs}g Carbs`}
                 variant={variantChanger2(
                   totalCarbs,
-                  reqMacros[0],
-                  reqMacros[1]
+                  reqMacros["minCarbs"],
+                  reqMacros["maxCarbs"]
                 )}
               />
               <br></br>
               <h4>Protein:</h4>
-              <h6>{`${totalProt}g Protein consumed`}</h6>
+              <h6>{`${totalProt}g Protein consumed in range ${reqMacros["minProteins"]}g to  ${reqMacros["maxProteins"]}g`}</h6>
               <ProgressBar
                 now={totalProt}
-                min={reqMacros[2]}
-                max={reqMacros[3]}
-                label={`${totalProt}g Protein consumed`}
-                variant={variantChanger2(totalProt, reqMacros[2], reqMacros[3])}
+                max={reqMacros["maxProteins"]}
+                label={`${totalProt}g Protein `}
+                variant={variantChanger2(
+                  totalProt,
+                  reqMacros["minProteins"],
+                  reqMacros["maxProteins"]
+                )}
               />
               <br></br>
               <h4>Fats:</h4>
-              <h6>{`${totalFats}g Fats consumed`}</h6>
+              <h6>{`${totalFats}g Fats consumed in range ${reqMacros["minFat"]}g to  ${reqMacros["maxFat"]}g`}</h6>
               <ProgressBar
                 now={totalFats}
-                min={reqMacros[4]}
-                max={reqMacros[5]}
-                label={`${totalFats}g Fats consumed`}
-                variant={variantChanger2(totalFats, reqMacros[4], reqMacros[5])}
+                max={reqMacros["maxFat"]}
+                label={`${totalFats}g Fats`}
+                variant={variantChanger2(
+                  totalFats,
+                  reqMacros["minFat"],
+                  reqMacros["maxFat"]
+                )}
               />
             </Col>
 
