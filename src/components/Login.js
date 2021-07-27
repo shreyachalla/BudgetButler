@@ -53,6 +53,7 @@ export default function Login() {
               src={logo}
               alt="Logo"
             />
+            
           </div>
         </Col>
 
