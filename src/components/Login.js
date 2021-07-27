@@ -41,6 +41,7 @@ export default function Login() {
       paddingLeft: "5vw",
     },
   };
+  
 
   return (
     <>
@@ -53,7 +54,7 @@ export default function Login() {
               src={logo}
               alt="Logo"
             />
-            
+
           </div>
         </Col>
 
