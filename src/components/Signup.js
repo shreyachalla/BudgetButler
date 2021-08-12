@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import logo from "../assets/group170.png";
+import logo from "../assets/logo6.png";
 // import styles from "./Signup.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -43,14 +43,19 @@ export default function Signup() {
   return (
     <>
       <Row>
-        <div className="leftCol" lg={7} md={6} sm={12}>
-          <Col className="logoCompName">
-            <img className="w-50 p-3" id="logo" src={logo} alt="Logo" />
-          </Col>
-        </div>
+        <Col className="logoCompName">
+          <div className="leftCol" lg={7} md={7} sm={7} xs={12}>
+            <img
+              className="w-75 justify-content-center"
+              id="logo"
+              src={logo}
+              alt="Logo"
+            />
+          </div>
+        </Col>
 
         {/* <h4>Already have an account? Log In </h4>  */}
-        <Col lg={5} md={6} sm={12} className="text-left mt-5 p-3">
+        <Col lg={5} md={5} sm={5} xs={12} className="text-left mt-5">
           <Form className="login-form" id="login-form">
             <Container style={styles.padding}>
               <Form.Group>
