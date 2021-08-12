@@ -30,3 +30,5 @@ https://youtu.be/qTxao0eCNqE
 Engineering: Jodie Ritchie, Shreya Challa, Varsha Vattappally\
 Product Management: Paul Adigba\
 Design: Jason Lei
+
+Named in Best Overall Project category (InternHacks Design Day) & Best Technical Problem category (InternHacks Demo Day) in InternHacks 2021 judging. 
