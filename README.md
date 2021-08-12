@@ -27,6 +27,6 @@ https://budget-butler-app.herokuapp.com/
 https://youtu.be/qTxao0eCNqE
 
 ## Contributors (InternHacks 2021)
-Engineering: Jodie Ritchie, Shreya Challa, Varsha Vattappally 
-Product Management: Paul Adigba
+Engineering: Jodie Ritchie, Shreya Challa, Varsha Vattappally\
+Product Management: Paul Adigba\
 Design: Jason Lei
